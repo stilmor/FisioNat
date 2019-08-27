@@ -1,24 +1,25 @@
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Raist.Controllers
 {
+    [Authorize]
     [Route("/citas")]
     [ApiController]
     public class citas :ControllerBase
     {
-        [HttpGet("{user_id}/citas/{cita_id}")]
-        public ActionResult<string> Get(string user_id, string cita_id)
+        [HttpGet("/citas/{cita_id}")]
+        public ActionResult<string> Get(string cita_id)
         {
-            var user_claim_id = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
-            if user_claim_id != user_id {
-                return Unauthorized;
-            }
+            var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
 
 
-            
 
             return "value";
         }
-
     }
 }

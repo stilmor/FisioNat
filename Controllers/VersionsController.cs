@@ -28,7 +28,7 @@ namespace Raist.Controllers
              // Lo que devuelvas aqui se convierte en JSON o HTML depende de las cabeceras enviadas a tu API
              // Pero no te tienes que preocupar de eso, tu crea un objecto y devuelvelo
              // En este caso es un diccionario, normalmente sera una clase tuya o un IEnumerable<Clase>
-             return new Dictionary<string, string>() { { "version", email } };
+             return new Dictionary<string, string>() { { "version", "1.2" } };
         }
 
     }
