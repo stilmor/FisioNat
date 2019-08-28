@@ -6,9 +6,11 @@ namespace Raist.Models
     {        
         public int idCita {get; set;}
 
-        public Guid usuarioUuid {get; set;}
+        //public Guid usuarioUuid {get; set;}
 
         public DateTime cuando {get; set;}
+
+        public string especialista {get; set;}
 
     }
 }

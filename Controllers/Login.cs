@@ -64,6 +64,4 @@ namespace Raist.Controllers
             return token;
         }
     }
-
-
 }
