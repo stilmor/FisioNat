@@ -32,7 +32,7 @@ namespace Raist.Controllers
 
            var claims = new[]
             {
-                new Claim(ClaimTypes.Sid, "uuid de este usuario"),
+                new Claim(ClaimTypes.Sid, "2df84ab3-42e8-4f1e-8157-7f5b27f54474"),
                 new Claim(ClaimTypes.Uri, "urn:type:usuario")
             };
             // Leemos el secret_key desde nuestro appseting

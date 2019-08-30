@@ -14,7 +14,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.EntityFrameworkCore;
+// using Microsoft.EntityFrameworkCore;
+  using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 
 namespace Raist
 {
@@ -51,6 +52,12 @@ namespace Raist
 
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
+            // // In production, the React files will be served from this directory
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
+
             /* services.AddEntityFrameworkNpgsql()  
                 .AddDbContext<NuestroDbContext>(opt => opt.UseNpgsql("connection string"));   */
         }
@@ -68,7 +75,7 @@ namespace Raist
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+          //  app.UseHttpsRedirection();
 
             // app.UseRouting();
 
@@ -78,7 +85,25 @@ namespace Raist
 
              app.UseHttpMethodOverride();
 
+             app.UseStaticFiles();
+             app.UseSpaStaticFiles();
 
+             app.UseMvc(routes =>
+             {
+                 routes.MapRoute(
+                     name: "default",
+                     template: "{controller}/{action=Index}/{id?}");
+             });
+
+             app.UseSpa(spa =>
+             {
+                 spa.Options.SourcePath = "ClientApp";
+
+                 if (env.IsDevelopment())
+                 {
+                     spa.UseReactDevelopmentServer(npmScript: "start");
+                 }
+             });
             // app.UseEndpoints(endpoints =>
             // {
             //     endpoints.MapControllers();

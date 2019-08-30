@@ -16,9 +16,6 @@ namespace Raist.Controllers
         public string password {get; set;}        
 
         public LoginInformation(){
-
         }
-
-    }
-   
+    }   
 }
