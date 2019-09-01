@@ -1,11 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Raist.Models
 {
     public class Alergeno
     {
-        public string uuid { get; set; }
+        [Key]
+        public Guid UUID { get; set; }
         public string nombreAlergeno { get; set; }
-        
+
     }
 }

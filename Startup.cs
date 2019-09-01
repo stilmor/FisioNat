@@ -14,8 +14,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-// using Microsoft.EntityFrameworkCore;
-  using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Raist.Data;
 
 namespace Raist
 {
@@ -58,8 +59,9 @@ namespace Raist
                 configuration.RootPath = "ClientApp/build";
             });
 
-            /* services.AddEntityFrameworkNpgsql()  
-                .AddDbContext<NuestroDbContext>(opt => opt.UseNpgsql("connection string"));   */
+             services.AddEntityFrameworkNpgsql().AddDbContext<ClinicaContext>(options =>
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

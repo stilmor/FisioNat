@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Raist.Models
 {
     public class Cita
-    {        
+    {
+        [Key]
         public Guid UUID {get; set;}
 
         //public Guid usuarioUuid {get; set;}

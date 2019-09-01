@@ -4,9 +4,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raist.Models
 {
-    
+
     public class Usuario
     {
+        [Key]
         public Guid UUID { get; set; }
         public string nombre { get; set; }
         public string apellido1 { get; set; }
@@ -17,5 +18,3 @@ namespace Raist.Models
         public List<Alergeno> alergias { get; set; }
     }
 }
-
-
