@@ -8,7 +8,7 @@ namespace Raist.Data
         public ClinicaContext(DbContextOptions<ClinicaContext> options) : base(options)
         {
         }
-
+        
         public DbSet<Cita> Citas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Alergeno> Alergenos { get; set; }

@@ -1,56 +1,67 @@
-using System;  
-using System.Net;  
-using System.Threading;  
-//using System.Web.Http;
-using Raist.Models;
-using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using Raist.Models;
 
-namespace Raist.Controllers  
+
+
+namespace Raist.Controllers
 {
-    /* 
-    /// <summary>
-    /// login controller class for authenticate users
-    /// </summary>
-    [AllowAnonymous]
-    [System.Web.Http.Route("/loginController")]
+
+    [Route("/login")]
+    [ApiController]
     public class LoginController : ControllerBase
     {
-        [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("echoping")]
-        public IHttpActionResult EchoPing()
+        private readonly IConfiguration _configuration;
+
+        public LoginController(IConfiguration configuration)
         {
-            return Ok(true);
+            _configuration = configuration;
         }
 
-        [System.Web.Http.HttpGet]
-        [System.Web.Http.Route("echouser")]
-        public IHttpActionResult EchoUser()
-        {
-            var identity = Thread.CurrentPrincipal.Identity;
-            return Ok($" IPrincipal-user: {identity.Name} - IsAuthenticated: {identity.IsAuthenticated}");
-        }
 
         [HttpPost]
-        [Route("authenticate")]
-        public IHttpActionResult Authenticate(LoginRequest login)
+        [Route("[action]")]
+        public ActionResult<IDictionary<string, string>> usuario([FromBody] LoginInformation login)
         {
-            if (login == null)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+           // Tu código para validar que el usuario ingresado es válido
 
-            //TODO: Validate credentials Correctly, this code is only for demo !!
-            bool isCredentialValid = (login.Password == "123456");
-            if (isCredentialValid)
+           var claims = new[]
             {
-                var token = TokenGenerator.GenerateTokenJwt(login.Username);
-                return Ok(token);
-            }
-            else
-            {
-                return Unauthorized();
-            }
+                new Claim(ClaimTypes.Sid, "2df84ab3-42e8-4f1e-8157-7f5b27f54474"),
+                new Claim(ClaimTypes.Uri, "urn:type:usuario")
+            };
+            // Leemos el secret_key desde nuestro appseting
+            var token = tokenize(claims);
+
+            return new Dictionary<string, string>() { { "token", token } };
         }
-    }*/
+
+
+        private string tokenize(Claim[] claims)
+        {
+            // Leemos el secret_key desde nuestro appseting
+            var secretKey = _configuration.GetValue<string>("SecretKey");
+            var key = System.Text.Encoding.ASCII.GetBytes(secretKey);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                // Nuestro token va a durar un día
+                Expires = DateTime.UtcNow.AddDays(1),
+                // Credenciales para generar el token usando nuestro secretykey y el algoritmo hash 256
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var createdToken = tokenHandler.CreateToken(tokenDescriptor);
+
+            var token = tokenHandler.WriteToken(createdToken);
+            return token;
+        }
+    }
 }
