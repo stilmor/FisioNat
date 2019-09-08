@@ -21,10 +21,10 @@ namespace Raist.Controllers
         }
 
         [HttpGet("/citas")]
-        public ActionResult<IEnumerable<Cita>> Get() {
+        /*public ActionResult<IEnumerable<Cita>> Get() {
 
             return _context.Citas.ToList();
-        }
+        }*/
 
         [HttpGet("/citas/{cita_id}")]
         public ActionResult<Cita> Get(Guid cita_id)
@@ -34,13 +34,15 @@ namespace Raist.Controllers
             return new Cita
             {
                 UUID = Guid.NewGuid(),
-                cuando = new System.DateTime(2019,08,30,17,30,00),
-                especialidad = "Fisioterapia",
-                nombreEspecialista = "Isabel",
+                fechaCita = new System.DateTime(2019,08,30,17,30,00),
+               // especialidad = "Fisioterapia",
+               // nombreEspecialista = "Isabel",
                 descripcionConsulta = "Acude a consulta por dolor en hombro izquierdo",
-                tratamiento = "manipulacion en la escapula del hombro izquierdo, tratamiento con frio y tens",
-                inicioTratamiento = new DateTime(2019,08,30),
-                finTratamiento = new DateTime(2019,09,5),
+              //  tratamiento = "manipulacion en la escapula del hombro izquierdo, tratamiento con frio y tens",
+              //  inicioTratamiento = new DateTime(2019,08,30),
+               // finTratamiento = new DateTime(2019,09,5),
+                pacienteUUID= Guid.NewGuid(),
+                especialistaUUID = Guid.NewGuid()
             };
         }
     }

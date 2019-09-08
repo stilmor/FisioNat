@@ -15,6 +15,6 @@ namespace Raist.Models
         public string telefono { get; set; }
         public string email { get; set; }
         public int codigoPin { get; set; }
-        public List<Alergeno> alergias { get; set; }
+        public List<Alergia> alergias { get; set; }
     }
 }
