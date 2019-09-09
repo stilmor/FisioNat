@@ -7,16 +7,8 @@ namespace Raist.Models
     public class Alergia
     {
         [Key]
-        [Column("id_alergia")]
         public Guid UUID { get; set; }
-
-        [Column("id_paciente")]
-        [ForeignKey("Usuario")]
-        public Guid pacienteId { get; set; }
-
-        [Column("id_alergeno")]
-        [ForeignKey("Alergeno")]
-        public Guid alergenoId {get; set;}
-        public Alergeno alergeno {get; set;}
+        public Paciente pacienteId { get; set; }
+        public Alergeno alergenoId {get; set;}
     }
 }

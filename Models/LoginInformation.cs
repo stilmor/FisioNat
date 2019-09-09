@@ -14,8 +14,5 @@ namespace Raist.Controllers
        public string user {get; set;}
          [Required]
         public string password {get; set;}        
-
-        public LoginInformation(){
-        }
-    }   
+    }
 }

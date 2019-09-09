@@ -41,8 +41,8 @@ namespace Raist.Controllers
               //  tratamiento = "manipulacion en la escapula del hombro izquierdo, tratamiento con frio y tens",
               //  inicioTratamiento = new DateTime(2019,08,30),
                // finTratamiento = new DateTime(2019,09,5),
-                pacienteUUID= Guid.NewGuid(),
-                especialistaUUID = Guid.NewGuid()
+                //pacienteUUID= Guid.NewGuid(),
+                //especialistaUUID = Guid.NewGuid()
             };
         }
     }

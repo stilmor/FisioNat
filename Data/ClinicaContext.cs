@@ -13,5 +13,7 @@ namespace Raist.Data
           public DbSet<Alergeno> Alergenos { get; set; }
           public DbSet<Especialista> Especialistas { get; set; }
 
+          public  DbSet<Imagen> Imagenes{get; set;}
+
     }
 }
