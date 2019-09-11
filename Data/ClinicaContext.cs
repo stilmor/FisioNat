@@ -18,6 +18,7 @@ namespace Raist.Data
         public DbSet<Clinica> clinicas {get; set;}
         public DbSet<PacienteDeClinica> pacientesDeClinicas {get; set;}
 
+        public DbSet<Paciente> Pacientes {get; set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Registro>()
