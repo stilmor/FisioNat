@@ -26,6 +26,16 @@ namespace Raist.Data
 
             modelBuilder.Entity<PacienteDeClinica>()
                 .HasKey(a => new { a.clinica, a.paciente});
+
+            modelBuilder.Entity<PacienteDeClinica>()
+                .HasOne(pt => pt.clinica)
+                .WithMany(p => p.pacienteDeClinicas)
+                .HasForeignKey(pt => pt.clinica);
+
+            modelBuilder.Entity<PacienteDeClinica>()
+                .HasOne(pt => pt.paciente)
+                .WithMany(p => p.pacienteDeClinicas)
+                .HasForeignKey(pt => pt.paciente);
         }
     }
 }
