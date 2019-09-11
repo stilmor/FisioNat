@@ -6,13 +6,9 @@ namespace Raist.Models
 {
     public class Registro
     {
-        [Key]
         public string usuario { get; set; }
-        [Key]
         public string  password { get; set; }
-        [Key]
-        public string password_huella  { get; set; }
-        public Paciente paciente_id { get; set; }
-
+        public string passwordHuella  { get; set; }
+        public Paciente pacienteId { get; set; }
     }
 }

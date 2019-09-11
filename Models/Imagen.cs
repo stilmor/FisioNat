@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raist.Models
 {
-    public class Imagenes
+    public class Imagen
     {
         [Key]
         public Guid UUID {get; set;}
