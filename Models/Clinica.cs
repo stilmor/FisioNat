@@ -7,7 +7,7 @@ namespace Raist.Models
     public class Clinica
     {
         [Key]
-        public Guid UUID{get; set;}
+        public Guid clinicaUUID{get; set;}
         public string nombre {get; set;}
         public string calle {get; set;}
         public string numero {get; set;}

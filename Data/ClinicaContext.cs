@@ -25,17 +25,17 @@ namespace Raist.Data
                 .HasKey(c => new { c.usuario, c.password,c.passwordHuella });
 
             modelBuilder.Entity<PacienteDeClinica>()
-                .HasKey(a => new { a.clinica, a.paciente});
+                .HasKey(a => new { a.pacienteUUID, a.clinicaUUID});
 
             modelBuilder.Entity<PacienteDeClinica>()
                 .HasOne(pt => pt.clinica)
                 .WithMany(p => p.pacienteDeClinicas)
-                .HasForeignKey(pt => pt.clinica);
+                .HasForeignKey(pt => pt.clinicaUUID);
 
             modelBuilder.Entity<PacienteDeClinica>()
                 .HasOne(pt => pt.paciente)
                 .WithMany(p => p.pacienteDeClinicas)
-                .HasForeignKey(pt => pt.paciente);
+                .HasForeignKey(pt => pt.pacienteUUID);
         }
     }
 }
