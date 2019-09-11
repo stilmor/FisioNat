@@ -7,10 +7,6 @@ namespace Raist.Models
 {
     public class Paciente
     {
-        public Paciente()
-        {
-            this.Clinicas = new HashSet<Clinica>();
-        }
         [Key]
         public Guid UUID { get; set; }
         public int codigoPin { get; set; }
@@ -33,6 +29,6 @@ namespace Raist.Models
         public string provincia { get; set; }
         public int codigoPostal { get; set; }
         public string correoElectronico { get; set; }
-        public virtual ICollection <Clinica> Clinicas { get; set; }
+        public List <PacienteDeClinica> pacienteDeClinicas {get;set;}
     }
 }
