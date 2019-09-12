@@ -5,7 +5,6 @@ namespace Raist.Models
 {
     public class PacienteDeClinica
     {
-
         public Guid pacienteUUID {get; set;}
         public Paciente paciente{get; set;}
 

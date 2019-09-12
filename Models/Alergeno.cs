@@ -8,6 +8,9 @@ namespace Raist.Models
     {
         [Key]
         public Guid UUID { get; set; }
+
+        [Required]
+        [MaxLength(50)]
         public string nombreAlergeno { get; set; }
     }
 }

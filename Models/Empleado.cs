@@ -8,12 +8,16 @@ namespace Raist.Models
         [Key]
         public Guid UUID{get; set;}
 
+        [Required]
+        [MaxLength(30)]
         public string nombre {get; set;}
 
+        [Required]
+        [MaxLength(30)]
         public string apellido1 {get; set;}
 
+        [Required]
+        [MaxLength(30)]
         public string apellido2 {get; set;}
-
-
     }
 }
