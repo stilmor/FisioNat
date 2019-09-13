@@ -14,8 +14,10 @@ namespace Raist.Data
         public DbSet<Registro> registros {get; set;}
         public DbSet<TratamientoCita> tratamientoCitas{get; set;}
         public DbSet<TratamientoFarmacologico> tratamientosFarmacologicos {get; set;}
-        public DbSet<Clinica> clinicas {get; set;}
+        public DbSet<Clinica> Clinicas {get; set;}
         public DbSet<PacienteDeClinica> pacientesDeClinicas {get; set;}
+        public DbSet<Empleado> Empleados {get; set;}
+        public DbSet<Especialidad> Especialidades {get; set;}
 
         public DbSet<Paciente> Pacientes {get; set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)

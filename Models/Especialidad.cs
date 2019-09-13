@@ -8,8 +8,7 @@ namespace Raist.Models
         [Key]
         public Guid UUID {get; set;}
 
-        [Required]
-        [MaxLength(30)]
+        [Required,MaxLength(30,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string nombre {get;set;}
     }
 }

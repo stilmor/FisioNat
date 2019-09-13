@@ -9,16 +9,13 @@ namespace Raist.Models
         [Key]
         public Guid UUID {get; set;}
 
-        [Required]
-        [ForeignKey("Especialista")]
+        [Required,ForeignKey("Especialidad")]
         public Especialidad especialidadId {get; set;}
 
-        [Required]
-        [ForeignKey("Empleado")]
+        [Required,ForeignKey("Empleado")]
         public Empleado empleadoId {get; set;}
 
-        [Required]
-        [MaxLength(99999)]
+        [Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public int numeroColegiado {get; set;}
     }
 }

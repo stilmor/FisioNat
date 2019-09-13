@@ -9,32 +9,27 @@ namespace Raist.Models
         [Key]
         public Guid clinicaUUID{get; set;}
 
-        [Required]
-        [MaxLength(30)]
+        [Required,MaxLength(30,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string nombre {get; set;}
 
-        [Required]
-        [MaxLength(120)]
+        [Required,MaxLength(120,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string calle {get; set;}
 
-        [Required]
-        [MaxLength(20)]
+        [Required,MaxLength(20,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string numero {get; set;}
 
-        [Required]
-        [MaxLength(50)]
+        [Required,MaxLength(50,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string localidad {get; set;}
 
-        [Required]
-        [MaxLength(5)]
-        [MinLength(5)]
+
+        //[Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [Required,MaxLength(9, ErrorMessage ="la longitud maxima de {0} es de {1}" )]
         public int codigoPostal {get; set;}
 
         //restriccion para direcciones web
         public string web {get; set;}
-        [Required]
-        [MaxLength(9)]
-        [MinLength(9)]
+
+       [Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public int telefono {get; set;}
         public List <PacienteDeClinica> pacienteDeClinicas {get;set;}
     }

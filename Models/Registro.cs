@@ -8,8 +8,7 @@ namespace Raist.Models
     {
         public string usuario { get; set; }
 
-        [MaxLength(20,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
-        [MinLength(8, ErrorMessage = "La longitud minima de {0} es de {1} caracteres")]
+        [Range(8,20, ErrorMessage = "La longitud minima de {0} es de {1} caracteres y la maxima de {2}")]
         public string  password { get; set; }
 
         //revisar formato passwordHuella app

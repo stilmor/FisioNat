@@ -15,16 +15,15 @@ namespace Raist.Models
         //falta configuracion de horas
         public DateTime horaCita {get; set;}
 
-        [Required]
-        [ForeignKey("Paciente")]
+        [Required,ForeignKey("Paciente")]
         public Paciente paciente {get; set;}
 
-        [Required]
-        [MaxLength(2000)]
+
+        [Required,MaxLength(2000,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string descripcionConsulta {get; set;}
 
-        [Required]
-        [ForeignKey("Especialista")]
+
+        [Required,ForeignKey("Especialista")]
         public Especialista especialista {get; set;}
     }
 }

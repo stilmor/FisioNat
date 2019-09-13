@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raist.Models
 {
-
     public class Usuario
     {
         [Key]
