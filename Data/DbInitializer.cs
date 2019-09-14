@@ -225,7 +225,8 @@ namespace Raist.Data
                 {
                     UUID = Guid.NewGuid(),
                     pacienteId = pacientes[0],
-                    alergenoId = alergenos[0]
+                    alergenoId = alergenos[0],
+                    
                 }
             };
             foreach(Alergia al in alergias)

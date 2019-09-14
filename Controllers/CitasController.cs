@@ -21,10 +21,10 @@ namespace Raist.Controllers
         }
 
         [HttpGet("/citas")]
-        /*public ActionResult<IEnumerable<Cita>> Get() {
+        public ActionResult<IEnumerable<Cita>> Get() {
 
             return _context.Citas.ToList();
-        }*/
+        }
 
         [HttpGet("/citas/{cita_id}")]
         public ActionResult<Cita> Get(Guid cita_id)
