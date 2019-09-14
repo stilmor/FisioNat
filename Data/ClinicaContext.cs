@@ -9,6 +9,7 @@ namespace Raist.Data
         public DbSet<Cita> Citas { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Alergeno> Alergenos { get; set; }
+        public DbSet<Alergia> Alergias { get; set; }
         public DbSet<Especialista> Especialistas { get; set; }
         public DbSet<Imagen> Imagenes {get; set;}
         public DbSet<Registro> registros {get; set;}

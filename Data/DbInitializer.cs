@@ -34,6 +34,25 @@ namespace Raist.Data
             }
             context.SaveChanges();
 
+            //Alergeno
+            var alergenos = new Alergeno[]
+            {
+                new Alergeno
+                {
+                    UUID = Guid.NewGuid(),
+                    nombreAlergeno = "almendra"
+                }
+            };
+            foreach ( Alergeno a in alergenos)
+            {
+                context.Alergenos.Add(a);
+            }
+            context.SaveChanges();
+
+
+            //PACIENTE
+
+
             var pacientes = new Paciente[]
             {
                 new Paciente
@@ -63,6 +82,41 @@ namespace Raist.Data
             {
                 return;   // DB has been seeded
             }
+
+            //PACIENTE DE CLINICA
+            var pacientesdeclinicas = new PacienteDeClinica[]
+            {
+                new PacienteDeClinica
+                {
+                    clinica = clinicas[0],
+                    paciente = pacientes[0]
+                }
+            };
+            foreach(PacienteDeClinica pc in pacientesdeclinicas)
+            {
+                context.pacientesDeClinicas.Add(pc);
+            }
+            context.SaveChanges();
+
+            //TRATAMIENTO FARMACOLOLGICO
+
+            var tratamientosfarmacologicos = new TratamientoFarmacologico[]
+            {
+                new TratamientoFarmacologico
+                {
+                    UUID = Guid.NewGuid(),
+                    fechaInicio = new System.DateTime(2019,07,15,09,30,00),
+                    fechaFin = new System.DateTime(2019,08,15,09,30,00),
+                    descripcionTratamiento = "antiflamatorio",
+                    paciente = pacientes[0]
+                }
+            };
+            foreach(TratamientoFarmacologico tratamiento in tratamientosfarmacologicos)
+            {
+                context.tratamientosFarmacologicos.Add(tratamiento);
+            }
+            context.SaveChanges();
+
 
             //EMPLEADO
                Empleado empleado = new Empleado
@@ -104,7 +158,6 @@ namespace Raist.Data
             context.SaveChanges();
 
             //CITAS
-            string nombre = especialistas[0].especialidadId.nombre;
             var citas = new Cita[]
             {
                 new Cita{
@@ -113,7 +166,7 @@ namespace Raist.Data
                     horaCita = new System.DateTime(2019,08,30,17,30,00),
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Peppa Pig",
-                    especialista = especialistas[0],
+                    especialista = especialistas[0]
                    // tratamiento="Tratamiento con frio",
                    // inicioTratamiento=DateTime.Parse("2019-09-03"),
                    // finTratamiento=DateTime.Parse("2019-10-01")
@@ -124,6 +177,8 @@ namespace Raist.Data
                 context.Citas.Add(s);
             }
             context.SaveChanges();
+
+
 
                 // new Cita
                 // {
@@ -143,6 +198,42 @@ namespace Raist.Data
                 context.Citas.Add(s);
             }
             context.SaveChanges();*/
+
+            //TRATAMIENTOCITA
+            var tratamientos = new TratamientoCita[]
+            {
+                new TratamientoCita
+                {
+                    UUID = Guid.NewGuid(),
+                    fechaInicio = new System.DateTime(2019,08,30,17,30,00),
+                    fechaFin = new System.DateTime(2019,09,05,17,30,00),
+                    descripcion = "vendaje en la el hombro izquierdo",
+                    cita = citas[0]
+                }
+            };
+
+            foreach(TratamientoCita tr in tratamientos)
+            {
+                context.tratamientoCitas.Add(tr);
+            }
+            context.SaveChanges();
+
+             //Alergia
+            var alergias = new Alergia[]
+            {
+                new Alergia
+                {
+                    UUID = Guid.NewGuid(),
+                    pacienteId = pacientes[0],
+                    alergenoId = alergenos[0]
+                }
+            };
+            foreach(Alergia al in alergias)
+            {
+                context.Alergias.Add(al);
+            }
+            context.SaveChanges();
+
 
             //USUARIOS
 
