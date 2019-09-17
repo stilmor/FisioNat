@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,5 +19,8 @@ namespace Raist.Models
         public Paciente paciente {get; set;}
 
         public Especialista especialista {get; set;}
+
+        public ICollection <TratamientoCita> tratamientoscitas  { get; set; }
+
     }
 }

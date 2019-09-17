@@ -74,5 +74,8 @@ namespace Raist.Models
         //el correo deberia ser obligatorio dado que este sera el usuario para la app
         public string correoElectronico { get; set; }
         public List <PacienteDeClinica> pacienteDeClinicas {get;set;}
+        public ICollection<Alergia> alergias { get; set; }
+        public ICollection <TratamientoFarmacologico> tratamientosFarmacologicos { get; set; }
+        public ICollection <Imagen> imagenes { get; set; }
     }
 }

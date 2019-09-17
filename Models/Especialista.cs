@@ -20,5 +20,6 @@ namespace Raist.Models
 
         [Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public int numeroColegiado {get; set;}
+        
     }
 }

@@ -8,6 +8,9 @@ namespace Raist.Data
     {
         public static void Seed(ClinicaContext context) {
 
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
             //CLINICAS
             var clinicas = new Clinica[]
             {
@@ -64,7 +67,9 @@ namespace Raist.Data
                     fechaNacimiento = DateTime.Parse("11-02-1984"),
                     valoracionInicial = "Primera valoracion en consulta",
                     cirugia = "no tiene cirugias",
-                    codigoPostal = 28845
+                    codigoPostal = 28845,
+                    correoElectronico = "victorp@prueba.com"
+
                 }
             };
 
@@ -186,6 +191,18 @@ namespace Raist.Data
                     alergeno = alergenos[0],
                 }
             );
+
+            //REGISTRO
+            context.registros.Add(
+                new Registro {
+                    usuario =  pacientes[0].correoElectronico,
+                    password = pacientes[0].codigoPin.ToString(),
+                    passwordHuella = "1234",
+                    pacienteId = pacientes[0]
+                }
+            );
+
+
 
 
             //USUARIOS

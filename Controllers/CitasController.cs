@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Raist.Data;
 using Raist.Models;
 
@@ -30,7 +31,17 @@ namespace Raist.Controllers
         public ActionResult<Cita> Get(Guid cita_id)
         {
             var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
-            return _context.Citas.FirstOrDefault();
+
+            Cita cita  = _context.Citas.Where(c => c.UUID == cita_id)
+            .Include
+                (cita => cita.paciente)
+            .Include
+                (cita => cita.especialista)
+            .Include
+                (cita => cita.tratamientoscitas)
+            .FirstOrDefault();
+
+            return cita;
         }
     }
 }
