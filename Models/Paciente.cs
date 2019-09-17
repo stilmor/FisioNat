@@ -8,7 +8,9 @@ namespace Raist.Models
     public class Paciente
     {
         [Key]
-        public Guid pacienteUUID { get; set; }
+        public Guid UUID { get; set; }
+
+        public ICollection<Cita> citas { get; set; }
 
         [Required]
         //el codigo se generara de forma automatica al crear el usuario, hay que ver la longitud del codigo generado

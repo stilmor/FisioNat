@@ -77,25 +77,19 @@ namespace Raist
                 app.UseHsts();
             }
 
-          //  app.UseHttpsRedirection();
-
-            // app.UseRouting();
-
             app.UseAuthorization();
-             
-             app.UseAuthentication();
+            app.UseAuthentication();
+            app.UseHttpMethodOverride();
 
-             app.UseHttpMethodOverride();
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
 
-             app.UseStaticFiles();
-             app.UseSpaStaticFiles();
-
-             app.UseMvc(routes =>
-             {
-                 routes.MapRoute(
-                     name: "default",
-                     template: "{controller}/{action=Index}/{id?}");
-             });
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action=Index}/{id?}");
+            });
 
              app.UseSpa(spa =>
              {
@@ -106,11 +100,7 @@ namespace Raist
                      spa.UseReactDevelopmentServer(npmScript: "start");
                  }
              });
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapControllers();
-            // });
-            app.UseMvc();
+
         }
     }
 }

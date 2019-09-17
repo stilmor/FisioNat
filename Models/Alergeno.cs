@@ -9,6 +9,6 @@ namespace Raist.Models
         public Guid UUID { get; set; }
 
         [Required,MaxLength(50,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
-        public string nombreAlergeno { get; set; }
+        public string nombre { get; set; }
     }
 }

@@ -6,13 +6,9 @@ namespace Raist.Data
 {
     public static class DbInitializer
     {
-        public static void Initialize(ClinicaContext context)
-        {
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+        public static void Seed(ClinicaContext context) {
 
             //CLINICAS
-
             var clinicas = new Clinica[]
             {
                 new Clinica
@@ -32,32 +28,33 @@ namespace Raist.Data
             {
                 context.Clinicas.Add(u);
             }
-            context.SaveChanges();
 
             //Alergeno
             var alergenos = new Alergeno[]
             {
+               new Alergeno
+                {
+                    UUID = Guid.NewGuid(),
+                    nombre = "almendra"
+                },
                 new Alergeno
                 {
                     UUID = Guid.NewGuid(),
-                    nombreAlergeno = "almendra"
-                }
+                    nombre = "piñon"
+                },
             };
             foreach ( Alergeno a in alergenos)
             {
                 context.Alergenos.Add(a);
             }
-            context.SaveChanges();
 
 
             //PACIENTE
-
-
             var pacientes = new Paciente[]
             {
                 new Paciente
                 {
-                    pacienteUUID = Guid.Parse("984b0fe6-071e-416e-bfb2-f177ae7c8bdc"),
+                    UUID = Guid.NewGuid(),
                     codigoPin = 1234,
                     nombre = "victor",
                     apellido1 = "Fernandez",
@@ -75,13 +72,7 @@ namespace Raist.Data
             {
                 context.Pacientes.Add(p);
             }
-            context.SaveChanges();
 
-
-            if (context.Citas.Any())
-            {
-                return;   // DB has been seeded
-            }
 
             //PACIENTE DE CLINICA
             var pacientesdeclinicas = new PacienteDeClinica[]
@@ -96,7 +87,6 @@ namespace Raist.Data
             {
                 context.pacientesDeClinicas.Add(pc);
             }
-            context.SaveChanges();
 
             //TRATAMIENTO FARMACOLOLGICO
 
@@ -115,20 +105,18 @@ namespace Raist.Data
             {
                 context.tratamientosFarmacologicos.Add(tratamiento);
             }
-            context.SaveChanges();
 
 
             //EMPLEADO
-               Empleado empleado = new Empleado
-                   {
-                       UUID = Guid.NewGuid(),
-                       nombre = "Daniel",
-                       apellido1 = "polo",
-                       apellido2 = "takeuchi",
+            Empleado empleado = new Empleado
+                {
+                    UUID = Guid.NewGuid(),
+                    nombre = "Daniel",
+                    apellido1 = "polo",
+                    apellido2 = "takeuchi",
 
-               };
-               context.Add(empleado);
-               context.SaveChanges();
+            };
+            context.Add(empleado);
 
             //ESPECIALIDAD
             var especialidad = new Especialidad
@@ -136,8 +124,7 @@ namespace Raist.Data
                     UUID = Guid.NewGuid(),
                     nombre = "Fisioterapia"
                 };
-               context.Add(especialidad);
-               context.SaveChanges();
+            context.Add(especialidad);
 
 
             //ESPECIALISTA
@@ -146,8 +133,8 @@ namespace Raist.Data
                 new Especialista
                 {
                     UUID = Guid.NewGuid(),
-                    empleadoId = empleado,
-                    especialidadId = especialidad,
+                    empleado = empleado,
+                    especialidad = especialidad,
                     numeroColegiado = 112
                 }
             };
@@ -155,49 +142,23 @@ namespace Raist.Data
             {
                 context.Especialistas.Add(espe);
             }
-            context.SaveChanges();
 
             //CITAS
             var citas = new Cita[]
             {
                 new Cita{
-                    UUID=Guid.Parse("0b8670b5-63d4-4852-91b9-403d207c6e73"),
-                    fechaCita = DateTime.Parse("2019-09-01"),
+                    UUID=Guid.NewGuid(),
                     horaCita = new System.DateTime(2019,08,30,17,30,00),
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Peppa Pig",
                     especialista = especialistas[0]
-                   // tratamiento="Tratamiento con frio",
-                   // inicioTratamiento=DateTime.Parse("2019-09-03"),
-                   // finTratamiento=DateTime.Parse("2019-10-01")
                 }
             };
             foreach (Cita s in citas)
             {
                 context.Citas.Add(s);
             }
-            context.SaveChanges();
 
-
-
-                // new Cita
-                // {
-                //     UUID = Guid.NewGuid(),
-                //     pacienteUUID = Guid.NewGuid(),
-                //     fechaCita = new System.DateTime(2019,08,30,17,30,00),
-                    //especialidad = "Podologia",
-                    // nombreEspecialista = "Isabel",
-                    //descripcionConsulta = "Acude a consulta por dolor en hombro izquierdo",
-                    //tratamiento = "manipulacion en la escapula del hombro izquierdo, tratamiento con frio y tens",
-                    //inicioTratamiento = new DateTime(2019,08,30),
-                    //finTratamiento = new DateTime(2019,09,5),
-                //}
-            //};
-           /*  foreach (Cita s in citas)
-            {
-                context.Citas.Add(s);
-            }
-            context.SaveChanges();*/
 
             //TRATAMIENTOCITA
             var tratamientos = new TratamientoCita[]
@@ -216,24 +177,15 @@ namespace Raist.Data
             {
                 context.tratamientoCitas.Add(tr);
             }
-            context.SaveChanges();
 
              //Alergia
-            var alergias = new Alergia[]
-            {
-                new Alergia
-                {
+            context.Alergias.Add(
+                new Alergia {
                     UUID = Guid.NewGuid(),
-                    pacienteId = pacientes[0],
-                    alergenoId = alergenos[0],
-                    
+                    paciente = pacientes[0],
+                    alergeno = alergenos[0],
                 }
-            };
-            foreach(Alergia al in alergias)
-            {
-                context.Alergias.Add(al);
-            }
-            context.SaveChanges();
+            );
 
 
             //USUARIOS
@@ -258,7 +210,22 @@ namespace Raist.Data
             context.SaveChanges();*/
 
 
-            //ALERGENOS
+        }
+
+        public static void Initialize(ClinicaContext context)
+        {
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+
+            // Si esto esta aqui no ejecutamos nada.
+            if (context.Citas.Any())
+            {
+                return;
+            }
+
+            Seed(context);
+
+            context.SaveChanges();
         }
     }
 }
