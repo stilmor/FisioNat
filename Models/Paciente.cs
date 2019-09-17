@@ -10,7 +10,7 @@ namespace Raist.Models
         [Key]
         public Guid UUID { get; set; }
 
-        public ICollection<Cita> citas { get; set; }
+        //public ICollection<Cita> citas { get; set; }
 
         [Required]
         //el codigo se generara de forma automatica al crear el usuario, hay que ver la longitud del codigo generado

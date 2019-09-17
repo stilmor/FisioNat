@@ -32,13 +32,11 @@ namespace Raist.Controllers
         {
             var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
 
-            Cita cita  = _context.Citas.Where(c => c.UUID == cita_id)
-            .Include
-                (cita => cita.paciente)
-            .Include
-                (cita => cita.especialista)
-            .Include
-                (cita => cita.tratamientoscitas)
+            Cita cita  = _context.Citas
+            .Where(c => c.UUID == cita_id)
+            .Include(cita => cita.paciente)
+            .Include(cita => cita.especialista)
+            .Include(cita => cita.tratamientoscitas)
             .FirstOrDefault();
 
             return cita;
