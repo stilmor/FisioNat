@@ -1,5 +1,5 @@
 import React from 'react';
-import { Admin }
+import { Admin } from  'react';
 
 function App() {
   return (

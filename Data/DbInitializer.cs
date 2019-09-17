@@ -202,9 +202,6 @@ namespace Raist.Data
                 }
             );
 
-
-
-
             //USUARIOS
 
 
@@ -225,8 +222,6 @@ namespace Raist.Data
                 context.Usuarios.Add(u);
             }
             context.SaveChanges();*/
-
-
         }
 
         public static void Initialize(ClinicaContext context)
