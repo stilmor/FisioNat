@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Raist.Data;
 using Raist.Models;
 
 
@@ -16,11 +18,13 @@ namespace Raist.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        private readonly ClinicaContext _context;
         private readonly IConfiguration _configuration;
 
-        public LoginController(IConfiguration configuration)
+        public LoginController(IConfiguration configuration, ClinicaContext context)
         {
             _configuration = configuration;
+            _context = context;
         }
 
 
@@ -29,6 +33,12 @@ namespace Raist.Controllers
         public ActionResult<IDictionary<string, string>> usuario([FromBody] LoginInformation login)
         {
            // Tu código para validar que el usuario ingresado es válido
+           Registro registro = _context.registros.Where(r => r.usuario == login.user).FirstOrDefault();
+
+           if (registro == null || registro.password != login.password)
+           {
+               return NotFound("Usuario o contraseña incorrecta");
+           }
 
            var claims = new[]
             {
