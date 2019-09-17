@@ -9,8 +9,8 @@ namespace Raist.Models
         [Key]
         public Guid UUID { get; set; }
         [Required]
-        public Paciente pacienteId { get; set; }
+        public Paciente paciente { get; set; }
         [Required]
-        public Alergeno alergenoId {get; set;}
+        public Alergeno alergeno {get; set;}
     }
 }
