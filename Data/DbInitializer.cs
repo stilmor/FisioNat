@@ -147,7 +147,8 @@ namespace Raist.Data
             var citas = new Cita[]
             {
                 new Cita{
-                    UUID= Guid.Parse("1b2f1866-008d-46a4-8c98-2b16d6399213"),
+                    UUID=Guid.NewGuid(),
+                    id=1,
                     horaCita = new System.DateTime(2019,08,30,17,30,00),
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Peppa Pig",
@@ -155,6 +156,7 @@ namespace Raist.Data
                 },
                 new Cita{
                     UUID=Guid.NewGuid(),
+                    id=2,
                     horaCita = new System.DateTime(2019,09,30,17,30,00),
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Superwings",

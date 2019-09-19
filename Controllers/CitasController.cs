@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Raist.Data;
@@ -20,13 +21,15 @@ namespace Raist.Controllers
             _context = context;
         }
 
-//devuelve la cabecera de las citas
+        [EnableCors]
         [HttpGet("/citas")]
         public ActionResult<IEnumerable<Cita>> Get() {
-
-            return _context.Citas.ToList();
+            Response.Headers.Add("X-Total-Count", "2");
+            Response.Headers.Add("Access-Control-Expose-Headers", "X-Total-Count");
+            return Ok(_context.Citas.ToList());
         }
 
+        [EnableCors]
         [HttpGet("/citas/{cita_id}")]
         public ActionResult<Cita> Get(Guid cita_id)
         {
@@ -42,7 +45,7 @@ namespace Raist.Controllers
             if (cita == null) {
                 return NotFound("Cita no encontrada");
             }
-            
+
             return cita;
         }
     }
