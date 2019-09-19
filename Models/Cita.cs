@@ -8,7 +8,9 @@ namespace Raist.Models
     {
         [Key]
         public Guid UUID {get; set;}
-
+// id necesario para el tutorial de react-admin
+// quiza luego se puede quitar
+        public int id {get;set;}
         [Required]
         //falta configuracion de horas
         public DateTime horaCita {get; set;}

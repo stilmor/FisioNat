@@ -51,13 +51,21 @@ namespace Raist
                 };
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy( builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); //WithOrigins("http://127.0.0.1", "http://localhost").AllowAnyOrigin;
+                    });
+            });
+
             services.AddMvc(option => option.EnableEndpointRouting = false);
 
             // // In production, the React files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/build";
-            });
+           // services.AddSpaStaticFiles(configuration =>
+           // {
+           //     configuration.RootPath = "ClientApp/build";
+          //  });
 
              services.AddEntityFrameworkNpgsql().AddDbContext<ClinicaContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
@@ -82,7 +90,7 @@ namespace Raist
             app.UseHttpMethodOverride();
 
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+//            app.UseSpaStaticFiles();
 
             app.UseMvc(routes =>
             {
@@ -90,7 +98,7 @@ namespace Raist
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-
+/*
              app.UseSpa(spa =>
              {
                  spa.Options.SourcePath = "ClientApp";
@@ -100,7 +108,7 @@ namespace Raist
                      spa.UseReactDevelopmentServer(npmScript: "start");
                  }
              });
-
+*/
         }
     }
 }
