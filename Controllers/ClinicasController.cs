@@ -26,6 +26,5 @@ namespace Raist.Controllers
 
         //     return _context.Citas.ToList();
         // }
-
     }
 }

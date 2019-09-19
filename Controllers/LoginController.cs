@@ -49,7 +49,6 @@ namespace Raist.Controllers
             return new Dictionary<string, string>() { { "token", token } };
         }
 
-
         private string tokenize(Claim[] claims)
         {
             // Leemos el secret_key desde nuestro appseting
