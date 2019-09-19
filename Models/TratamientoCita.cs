@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Raist.Models
 {
@@ -14,10 +15,10 @@ namespace Raist.Models
         [Required, DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime fechaFin {get; set;}
 
-        
         [Required, MaxLength(2000, ErrorMessage = "La longitud maxima para {0} del tratamiento es de {1} caracteres")]
         public string descripcion {get; set;}
 
+        [JsonIgnore]
         [Required]
         public Cita cita {get; set;}
     }

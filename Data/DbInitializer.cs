@@ -6,10 +6,7 @@ namespace Raist.Data
 {
     public static class DbInitializer
     {
-        public static void Seed(ClinicaContext context) {
-
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+        private static void Seed(ClinicaContext context) {
 
             //CLINICAS
             var clinicas = new Clinica[]
@@ -250,7 +247,6 @@ namespace Raist.Data
             }
 
             Seed(context);
-
             context.SaveChanges();
         }
     }
