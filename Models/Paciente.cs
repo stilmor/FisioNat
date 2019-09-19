@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Raist.Models
 {
@@ -9,8 +9,6 @@ namespace Raist.Models
     {
         [Key]
         public Guid UUID { get; set; }
-
-        //public ICollection<Cita> citas { get; set; }
 
         [Required]
         //el codigo se generara de forma automatica al crear el usuario, hay que ver la longitud del codigo generado
@@ -73,9 +71,17 @@ namespace Raist.Models
 
         //el correo deberia ser obligatorio dado que este sera el usuario para la app
         public string correoElectronico { get; set; }
+
+        [JsonIgnore]
         public List <PacienteDeClinica> pacienteDeClinicas {get;set;}
+
+        [JsonIgnore]
         public ICollection<Alergia> alergias { get; set; }
+
+        [JsonIgnore]
         public ICollection <TratamientoFarmacologico> tratamientosFarmacologicos { get; set; }
+
+        [JsonIgnore]
         public ICollection <Imagen> imagenes { get; set; }
-    }
+     }
 }

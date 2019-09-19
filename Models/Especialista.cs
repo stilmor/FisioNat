@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Raist.Models
 {
@@ -10,7 +10,8 @@ namespace Raist.Models
         [Key]
         public Guid UUID {get; set;}
 
-        //public ICollection<Cita> citas {get; set;}
+        [JsonIgnore]
+        public ICollection<Cita> citas {get; set;}
 
         [Required]
         public Especialidad especialidad {get; set;}

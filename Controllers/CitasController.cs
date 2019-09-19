@@ -30,14 +30,18 @@ namespace Raist.Controllers
         [HttpGet("/citas/{cita_id}")]
         public ActionResult<Cita> Get(Guid cita_id)
         {
-            var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
+            //var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
 
             Cita cita  = _context.Citas
-            .Where(c => c.UUID == cita_id)
             .Include(cita => cita.paciente)
             .Include(cita => cita.especialista)
             .Include(cita => cita.tratamientoscitas)
+            .Where(c => c.UUID == cita_id)
             .FirstOrDefault();
+
+            if (cita == null) {
+                return NotFound("Cita no encontrada");
+            }
 
             return cita;
         }
