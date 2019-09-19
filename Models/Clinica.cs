@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Raist.Models
 {
@@ -31,6 +32,8 @@ namespace Raist.Models
 
        [Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public int telefono {get; set;}
+
+        [JsonIgnore]
         public List <PacienteDeClinica> pacienteDeClinicas {get;set;}
     }
 }
