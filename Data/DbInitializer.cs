@@ -152,16 +152,16 @@ namespace Raist.Data
             var citas = new Cita[]
             {
                 new Cita{
-                    id=1,
                     UUID=Guid.NewGuid(),
+                    id=1,
                     horaCita = new System.DateTime(2019,08,30,17,30,00),
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Peppa Pig",
                     especialista = especialistas[0]
                 },
                 new Cita{
-                    id=2,
                     UUID=Guid.NewGuid(),
+                    id=2,
                     horaCita = new System.DateTime(2019,09,30,17,30,00),
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Superwings",
