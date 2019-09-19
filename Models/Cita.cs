@@ -18,8 +18,7 @@ namespace Raist.Models
 
         [Required]
         public Paciente paciente {get; set;}
-        [
-        Required]
+        [Required]
         public Especialista especialista {get; set;}
 
         public ICollection <TratamientoCita> tratamientoscitas  { get; set; }
