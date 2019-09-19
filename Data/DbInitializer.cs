@@ -6,10 +6,7 @@ namespace Raist.Data
 {
     public static class DbInitializer
     {
-        public static void Seed(ClinicaContext context) {
-
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+        private static void Seed(ClinicaContext context) {
 
             //CLINICAS
             var clinicas = new Clinica[]
@@ -157,6 +154,13 @@ namespace Raist.Data
                     paciente = pacientes[0],
                     descripcionConsulta="Ver Peppa Pig",
                     especialista = especialistas[0]
+                },
+                new Cita{
+                    UUID=Guid.NewGuid(),
+                    horaCita = new System.DateTime(2019,09,30,17,30,00),
+                    paciente = pacientes[0],
+                    descripcionConsulta="Ver Superwings",
+                    especialista = especialistas[0]
                 }
             };
             foreach (Cita s in citas)
@@ -241,7 +245,6 @@ namespace Raist.Data
             }
 
             Seed(context);
-
             context.SaveChanges();
         }
     }
