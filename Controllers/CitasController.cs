@@ -10,7 +10,7 @@ using Raist.Models;
 
 namespace Raist.Controllers
 {
-    [Authorize]
+   [Authorize]
     [Route("/citas")]
     [ApiController]
     public class CitasController :ControllerBase
