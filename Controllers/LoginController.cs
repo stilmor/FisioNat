@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using Raist.Data;
 using Raist.Models;
 
+
+
 namespace Raist.Controllers
 {
 
@@ -48,6 +50,7 @@ namespace Raist.Controllers
 
             return new Dictionary<string, string>() { { "token", token } };
         }
+
 
         private string tokenize(Claim[] claims)
         {

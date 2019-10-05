@@ -18,9 +18,8 @@ namespace Raist.Models
         [Required,MaxLength(2000,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string descripcionConsulta {get; set;}
 
-        [Required]
         public Paciente paciente {get; set;}
-        [Required]
+
         public Especialista especialista {get; set;}
 
         public ICollection <TratamientoCita> tratamientoscitas  { get; set; }

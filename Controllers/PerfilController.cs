@@ -3,7 +3,6 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Raist.Data;
 using Raist.Models;
 
@@ -25,19 +24,13 @@ namespace Raist.Controllers
         //<IEnumerable<Cita>
         public ActionResult<Paciente> Get()
         {
-            //var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
-             
-             Paciente paciente = _context.Pacientes
-             .Include(paciente => paciente.tratamientosFarmacologicos)
-             .Include(paciente => paciente.pacienteDeClinicas)
-             .Where(s => s.nombre == "victor")
-             .FirstOrDefault();
+            var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
 
+             Paciente paciente = _context.Pacientes.Where(s => s.nombre == "victor").FirstOrDefault();
 
-             if (paciente == null){
-
-                 return NotFound();
-            }
+            // if (paciente == null){
+            //     return NotFound();
+            //     }
 
 
             // Usuario cara = new Usuario {
@@ -48,7 +41,6 @@ namespace Raist.Controllers
             //     telefono = "+94918836498",
             //     email = "hermano.raistlin@mylance.com"
             // };
-
             return paciente;
         }
     }

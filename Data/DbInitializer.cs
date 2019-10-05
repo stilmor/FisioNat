@@ -15,10 +15,10 @@ namespace Raist.Data
                 {
                     clinicaUUID = Guid.NewGuid(),
                     nombre = "Fisio Alcala",
-                    calle = "Escritorios",
+                    calle = "Logrono",
                     numero = "5",
                     localidad = "Alcala de henares",
-                    codigoPostal = 28801,
+                    codigoPostal = 1234567899,
                     web = "probando.es",
                     telefono = 918846532
 
@@ -108,6 +108,7 @@ namespace Raist.Data
                 context.tratamientosFarmacologicos.Add(tratamiento);
             }
 
+
             //EMPLEADO
             Empleado empleado = new Empleado
                 {
@@ -126,6 +127,7 @@ namespace Raist.Data
                     nombre = "Fisioterapia"
                 };
             context.Add(especialidad);
+
 
             //ESPECIALISTA
             var especialistas = new Especialista[]
@@ -206,6 +208,9 @@ namespace Raist.Data
                 }
             );
 
+
+
+
             //USUARIOS
 
 
@@ -226,6 +231,8 @@ namespace Raist.Data
                 context.Usuarios.Add(u);
             }
             context.SaveChanges();*/
+
+
         }
 
         public static void Initialize(ClinicaContext context)

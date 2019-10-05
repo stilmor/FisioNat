@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ using Raist.Models;
 
 namespace Raist.Controllers
 {
-   [Authorize]
+  //  [Authorize]
     [Route("/citas")]
     [ApiController]
     public class CitasController :ControllerBase
