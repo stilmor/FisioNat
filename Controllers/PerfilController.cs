@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Raist.Data;
 using Raist.Models;
@@ -20,6 +21,7 @@ namespace Raist.Controllers
         {
             _context = context;
         }
+        [EnableCors]
         [HttpGet("/perfil")]
         //<IEnumerable<Cita>
         public ActionResult<Paciente> Get()

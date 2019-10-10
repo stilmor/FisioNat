@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Raist.Controllers
@@ -11,6 +12,7 @@ namespace Raist.Controllers
     public class ValuesController : ControllerBase
     {
         // GET api/values
+        [EnableCors]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -18,6 +20,7 @@ namespace Raist.Controllers
         }
 
         // GET api/values/5
+        [EnableCors]
         [HttpGet("{id}")]
         public ActionResult<string> Get(int id)
         {
@@ -25,18 +28,21 @@ namespace Raist.Controllers
         }
 
         // POST api/values
+        [EnableCors]
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
         // PUT api/values/5
+        [EnableCors]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/values/5
+        [EnableCors]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

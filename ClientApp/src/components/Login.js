@@ -2,22 +2,11 @@ import React, { Component } from 'react';
 
 export class Login extends Component {
   static displayName = Login.name;
-
-  constructor(props) {
-    super(props);
-    this.state = { currentCount: 0 };
-
-  }
-
-  incrementCounter() {
-    this.setState({
-      currentCount: this.state.currentCount + 1
-    });
-  }
   /*<button className="btn btn-primary" onClick={this.incrementCounter}>Enviar</button>*/
 
 
   render() {
+
     return (
 
       <div>

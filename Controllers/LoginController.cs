@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -13,7 +14,7 @@ using Raist.Models;
 
 namespace Raist.Controllers
 {
-
+    [EnableCors]
     [Route("/login")]
     [ApiController]
     public class LoginController : ControllerBase
@@ -27,7 +28,7 @@ namespace Raist.Controllers
             _context = context;
         }
 
-
+        [EnableCors]
         [HttpPost]
         [Route("[action]")]
         public ActionResult<IDictionary<string, string>> usuario([FromBody] LoginInformation login)
