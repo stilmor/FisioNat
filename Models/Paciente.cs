@@ -39,10 +39,10 @@ namespace Raist.Models
         [MaxLength(500,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string actividadFisica { get; set; }
 
-        [Required,MaxLength(2000,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [MaxLength(2000,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string valoracionInicial { get; set; }
 
-        [Required,MaxLength(500,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [MaxLength(500,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string cirugia { get; set; }
 
         [MaxLength(500,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]

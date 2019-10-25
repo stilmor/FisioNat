@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Raist.Models
 {
@@ -9,6 +10,8 @@ namespace Raist.Models
         [Key]
         public Guid UUID { get; set; }
         [Required]
+
+        [JsonIgnore]
         public Paciente paciente { get; set; }
         [Required]
         public Alergeno alergeno {get; set;}

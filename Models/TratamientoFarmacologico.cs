@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Raist.Models
 {
@@ -20,6 +21,7 @@ namespace Raist.Models
         public string descripcionTratamiento {get; set;}
 
         [Required]
+        [JsonIgnore]
         public Paciente paciente {get; set;}
     }
 }

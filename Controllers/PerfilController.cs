@@ -4,6 +4,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Raist.Data;
 using Raist.Models;
 
@@ -28,7 +30,28 @@ namespace Raist.Controllers
         {
             var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
 
-             Paciente paciente = _context.Pacientes.Where(s => s.nombre == "victor").FirstOrDefault();
+            //  Paciente paciente = _context.Pacientes.Where(s => s.nombre == "victor").FirstOrDefault();
+             Paciente paciente = _context.Pacientes
+             .Include(paciente => paciente.pacienteDeClinicas).Where(s => s.nombre == "victor").FirstOrDefault();
+
+            // Clinica UUID =
+            // Paciente pacienten = _context.Pacientes
+            // .Include(pacienten => paciente.pacienteDeClinicas.clinicaUUID
+
+            //  Paciente pacient = _context.Pacientes
+            //  .Include(_context.Clinicas.Where(c => c.clinicaUUID = paciente.))
+            //  .Where(s => s.nombre == "Victor").FirstOrDefault();
+
+
+
+
+
+            //  Cita cita  = _context.Citas
+            // .Include(cita => cita.paciente)
+            // .Include(cita => cita.especialista)
+            // .Include(cita => cita.tratamientoscitas)
+            // .Where(c => c.UUID == cita_id)
+            // .FirstOrDefault();
 
             // if (paciente == null){
             //     return NotFound();

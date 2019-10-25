@@ -21,7 +21,6 @@ namespace Raist.Models
         [Required,MaxLength(50,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string localidad {get; set;}
 
-
         //[Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         [Required,MaxLength(9, ErrorMessage ="la longitud maxima de {0} es de {1}" )]
         public int codigoPostal {get; set;}
