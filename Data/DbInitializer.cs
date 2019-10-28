@@ -18,7 +18,7 @@ namespace Raist.Data
                     calle = "Logrono",
                     numero = "5",
                     localidad = "Alcala de henares",
-                    codigoPostal = 1234567899,
+                    codigoPostal = 28804,
                     web = "probando.es",
                     telefono = 918846532
 
@@ -207,9 +207,6 @@ namespace Raist.Data
                     pacienteId = pacientes[0]
                 }
             );
-
-
-
 
             //USUARIOS
 

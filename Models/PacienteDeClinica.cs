@@ -12,8 +12,6 @@ namespace Raist.Models
         public Paciente paciente{get; set;}
 
         public Guid clinicaUUID {get; set;}
-
-        [JsonIgnore]
         public Clinica clinica{get; set;}
     }
 }

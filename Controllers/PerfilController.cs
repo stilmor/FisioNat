@@ -32,7 +32,12 @@ namespace Raist.Controllers
 
             //  Paciente paciente = _context.Pacientes.Where(s => s.nombre == "victor").FirstOrDefault();
              Paciente paciente = _context.Pacientes
-             .Include(paciente => paciente.pacienteDeClinicas).Where(s => s.nombre == "victor").FirstOrDefault();
+             .Include(paciente => paciente.alergias)
+             .ThenInclude(alergia => alergia.alergeno)
+             .Include(paciente => paciente.tratamientosFarmacologicos)
+             .Include(paciente => paciente.pacienteDeClinicas)
+             .ThenInclude(clinica => clinica.clinica)
+             .Where(s => s.nombre == "victor").FirstOrDefault();
 
             // Clinica UUID =
             // Paciente pacienten = _context.Pacientes
