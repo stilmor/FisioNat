@@ -12,6 +12,7 @@ namespace Raist.Controllers
     public class ValuesController : ControllerBase
     {
         // GET api/values
+
         [EnableCors]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -28,6 +29,7 @@ namespace Raist.Controllers
         }
 
         // POST api/values
+
         [EnableCors]
         [HttpPost]
         public void Post([FromBody] string value)
@@ -35,6 +37,7 @@ namespace Raist.Controllers
         }
 
         // PUT api/values/5
+
         [EnableCors]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)

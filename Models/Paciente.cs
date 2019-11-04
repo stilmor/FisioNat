@@ -24,10 +24,10 @@ namespace Raist.Models
         public string apellido2 { get; set; }
 
         //consultar mas adelante la obligatoriedad del telefono fijo
-        [Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [Range(100000000,1000000000, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public int telefonoFijo { get; set; }
 
-        [Required,Range(9,9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [Required,Range(100000000,1000000000, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public int telefonoMovil { get; set; }
 
         [Required, DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
@@ -66,7 +66,7 @@ namespace Raist.Models
         [MaxLength(20,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string provincia { get; set; }
 
-        [Range(5,5, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [Range(10000,100000, ErrorMessage = "La longitud maxima de {0} es de 5 caracteres")]
         public int codigoPostal { get; set; }
 
         //el correo deberia ser obligatorio dado que este sera el usuario para la app
