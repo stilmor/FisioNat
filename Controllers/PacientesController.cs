@@ -61,7 +61,7 @@ namespace Raist.Controllers {
 
         [EnableCors]
         [HttpPut ("{id}")]
-        public async Task<IActionResult> PutPaciente (Guid uuidPaciente, Paciente pacientemodificado) {
+        public async Task<IActionResult> putPaciente (Guid uuidPaciente, Paciente pacientemodificado) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
@@ -86,6 +86,25 @@ namespace Raist.Controllers {
             }
 
             return NoContent ();
+        }
+
+        [EnableCors]
+        [HttpDelete ("{id}")]
+        public ActionResult<IDictionary<string, string>> deletePaciente (Guid id) {
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            Paciente paciente = _context.Pacientes
+                .Where (p => p.UUID == id)
+                .FirstOrDefault ();
+
+            _context.Pacientes.Remove (paciente);
+            _context.SaveChanges ();
+
+            if (paciente == null) {
+                    return NotFound ();
+            }
+
+            return Ok (new Dictionary<string, string> () { { "ok", "Paciente borrado" } });
         }
     }
 }
