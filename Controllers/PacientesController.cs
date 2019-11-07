@@ -32,7 +32,7 @@ namespace Raist.Controllers {
 
             Paciente nuevoPaciente = new Paciente {
                 UUID = Guid.NewGuid (),
-                codigoPin = 1234,
+                codigoPin = new Random ().Next (10000),
                 nombre = paciente.nombre,
                 apellido1 = paciente.apellido1,
                 apellido2 = paciente.apellido2,
@@ -47,7 +47,28 @@ namespace Raist.Controllers {
 
             _context.SaveChanges ();
 
+            if (nuevoPaciente.correoElectronico != null) {
+                nuevoRegistro (nuevoPaciente);
+            }
+
             return Ok (new Dictionary<string, string> () { { "ok", "usuario insertado" } });
+        }
+
+        private void nuevoRegistro (Paciente pacienteRegistrado) {
+
+            Paciente paciente = _context.Pacientes
+                .Where (p => p.UUID == pacienteRegistrado.UUID)
+                .FirstOrDefault ();
+
+            Registro nuevoRegistro = new Registro {
+                pacienteId = pacienteRegistrado,
+                password = pacienteRegistrado.codigoPin.ToString (),
+                usuario = pacienteRegistrado.correoElectronico,
+            };
+
+            _context.registros.Add (nuevoRegistro);
+
+            _context.SaveChanges ();
         }
 
         [EnableCors]
@@ -61,36 +82,34 @@ namespace Raist.Controllers {
 
         [EnableCors]
         [HttpPut ("{id}")]
-        public async Task<IActionResult> putPaciente (Guid uuidPaciente, Paciente pacientemodificado) {
+        public async Task<IActionResult> putPaciente ([FromBody] Paciente pacientemodificado) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
             Paciente paciente = _context.Pacientes
-                .Where (p => p.UUID == uuidPaciente)
+                .Where (p => p.UUID == pacientemodificado.UUID)
                 .FirstOrDefault ();
 
-            if (uuidPaciente != pacientemodificado.UUID) {
-                return BadRequest ();
-            }
-
-            _context.Entry (paciente).State = EntityState.Modified;
+            _context.Entry (paciente).State = EntityState.Detached;
+            _context.Entry (pacientemodificado).State = EntityState.Modified;
 
             try {
                 await _context.SaveChangesAsync ();
             } catch (DbUpdateConcurrencyException) {
-                if (paciente == null) {
+                if (pacientemodificado == null) {
                     return NotFound ();
                 } else {
                     throw;
                 }
             }
 
-            return NoContent ();
+            return Ok ("Usuario Modificado");
         }
 
         [EnableCors]
         [HttpDelete ("{id}")]
         public ActionResult<IDictionary<string, string>> deletePaciente (Guid id) {
+
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
             Paciente paciente = _context.Pacientes
@@ -101,7 +120,7 @@ namespace Raist.Controllers {
             _context.SaveChanges ();
 
             if (paciente == null) {
-                    return NotFound ();
+                return NotFound ();
             }
 
             return Ok (new Dictionary<string, string> () { { "ok", "Paciente borrado" } });

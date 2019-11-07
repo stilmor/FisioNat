@@ -19,9 +19,7 @@ namespace Raist.Models
         [Required,MaxLength(30,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string apellido2 {get; set;}
 
-
-        [Required,MaxLength(,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
-        public ICollection <string> persmisos {get; set;}
+        //public ICollection <string> persmisos {get; set;}
 
         [JsonIgnore]
         public ICollection <Especialista> especialistas { get; set; }
