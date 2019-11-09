@@ -32,7 +32,7 @@ namespace Raist.Controllers {
         [HttpGet ("/citas/{cita_id}")]
         public ActionResult<Cita> Get (Guid cita_id) {
 
-            var user_uuid = User.Claims.Where(x => x.Type == ClaimTypes.Sid).First().Value;
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
             Cita cita = _context.Citas
                 .Include (cita => cita.paciente.alergias)
@@ -53,21 +53,35 @@ namespace Raist.Controllers {
 
         [EnableCors]
         [HttpPost]
-        public ActionResult<IDictionary<string, string>> nuevaCita ([FromBody] Cita cita) {
+        public ActionResult<IDictionary<string, string>> nuevaCita ( [FromBody] PostCita cita) {
+
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
-            Cita nuevaCita = new Cita {
+            Paciente paciente = _context.Pacientes
+                .Where (p => p.UUID == cita.pacienteId)
+                .FirstOrDefault ();
+
+            Especialista especialista = _context.Especialistas
+                .Where (e => e.UUID == cita.especialistaId)
+                .FirstOrDefault ();
+
+            if (paciente != null && especialista != null) {
+                Cita nuevaCita = new Cita {
                 UUID = Guid.NewGuid (),
                 horaCita = cita.horaCita,
-                especialista = cita.especialista,
-                paciente = cita.paciente,
-            };
+                especialista = especialista,
+                paciente = paciente,
+                };
+                _context.Citas.Add (nuevaCita);
 
-            _context.Citas.Add (nuevaCita);
+                _context.SaveChanges ();
 
-            _context.SaveChanges ();
+                return Ok (new Dictionary<string, string> () { { "ok", "Cita creada correctamente" } });
+            }
 
-            return Ok (new Dictionary<string, string> () { { "ok", "Cita creada correctamente" } });
+            return BadRequest("la cita no se a creado");
+
+
         }
     }
 }

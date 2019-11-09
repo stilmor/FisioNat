@@ -10,8 +10,6 @@ using Microsoft.IdentityModel.Tokens;
 using Raist.Data;
 using Raist.Models;
 
-
-
 namespace Raist.Controllers
 {
     [EnableCors]

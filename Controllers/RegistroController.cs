@@ -20,13 +20,14 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpPut ("{id}")]
+        [HttpPut]
         public async Task<IActionResult> putRegistro ([FromBody] Huella huella) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
+            //el correo es el user en el registro aqui se usa para localizar al paciente
             Paciente paciente = _context.Pacientes
-                .Where (p => p.UUID == huella.usuarioId)
+                .Where (p => p.correoElectronico == huella.user)
                 .FirstOrDefault ();
 
             Registro registro = _context.registros

@@ -5,6 +5,6 @@ namespace Raist.Models
     public class Huella
     {
       public  string huellaId {get; set;}
-      public  Guid usuarioId {get; set;}
+      public  string user {get; set;}
     }
 }
