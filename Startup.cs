@@ -70,6 +70,8 @@ namespace Raist
              services.AddEntityFrameworkNpgsql().AddDbContext<ClinicaContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
+                services. addDefaultAWSOptions(Configuration.GetAWSOptions());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
