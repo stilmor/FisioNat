@@ -1,20 +1,21 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
-namespace Raist.Models
-{
-    public class Imagen
-    {
+namespace Raist.Models {
+    public class Imagen {
         [Key]
-        public Guid UUID {get; set;}
-
-        [Required,MaxLength(30,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
-        public string nombre {get; set;}
-
-        [Required,MaxLength(1000,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
-        public string url {get; set;}
+        public Guid uuid { get; set; }
 
         [Required]
-        public Paciente paciente {get; set;}
+        public string url { get; set; }
+
+        [Required]
+        public string descripcion { get; set; }
+
+        [Required]
+
+        [JsonIgnore]
+        public Paciente paciente { get; set; }
     }
 }

@@ -15,6 +15,9 @@ namespace Raist.Models {
         [Required, MaxLength (30, ErrorMessage = "La longitud maxima2 de {0} es de {1} caracteres")]
         public string nombre { get; set; }
 
+        [Required, MaxLength (10, ErrorMessage = "La longitud maxima2 de {0} es de {1} caracteres")]
+        public string sexo {get; set;}
+
         [Required, MaxLength (30, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string apellido1 { get; set; }
 
@@ -69,6 +72,9 @@ namespace Raist.Models {
 
         //el correo deberia ser obligatorio dado que este sera el usuario para la app
         public string correoElectronico { get; set; }
+
+        [MaxLength (1000000000, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        public string historial {get; set;}
 
         //[JsonIgnore]
         // public Registro registro { get; set; }

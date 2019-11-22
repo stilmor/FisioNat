@@ -17,6 +17,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Raist.Data;
+using Amazon.SimpleNotificationService;
 
 namespace Raist
 {
@@ -70,7 +71,8 @@ namespace Raist
              services.AddEntityFrameworkNpgsql().AddDbContext<ClinicaContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
-                services. addDefaultAWSOptions(Configuration.GetAWSOptions());
+                services. AddDefaultAWSOptions(Configuration.GetAWSOptions());
+                services.AddAWSService<IAmazonSimpleNotificationService>();
 
         }
 

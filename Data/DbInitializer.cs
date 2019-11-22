@@ -66,6 +66,7 @@ namespace Raist.Data {
                 UUID = Guid.NewGuid (),
                 codigoPin = new Random ().Next (10000),
                 nombre = "victor",
+                sexo = "Hombre",
                 apellido1 = "Fernandez",
                 apellido2 = "lopez",
                 telefonoFijo = 918876532,
@@ -74,13 +75,15 @@ namespace Raist.Data {
                 valoracionInicial = "Primera valoracion en consulta",
                 cirugia = "no tiene cirugias",
                 codigoPostal = 28845,
-                correoElectronico = "victorp@prueba.com"
+                correoElectronico = "victorp@prueba.com",
+                historial = "Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, consecteur, en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de de Finnibus Bonorum et Malorum (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, Lorem ipsum dolor sit amet.., viene de una linea en la sección 1.10.32"
 
                 },
                 new Paciente {
                 UUID = Guid.NewGuid (),
                 codigoPin = new Random ().Next (10000),
                 nombre = "Miliki",
+                sexo = "Hombre",
                 apellido1 = "Loeches",
                 apellido2 = "Gomez",
                 telefonoFijo = 918863254,
@@ -88,12 +91,14 @@ namespace Raist.Data {
                 fechaNacimiento = DateTime.Parse ("06-09-2000"),
                 provincia = "Madrid",
                 codigoPostal = 28803,
-                correoElectronico = "tutumi@gmail.com"
+                correoElectronico = "tutumi@gmail.com",
+                historial = "primera cita, se le realiza primera palpacion de zona afectada en costado derecho"
                 },
-                  new Paciente {
+                new Paciente {
                 UUID = Guid.NewGuid (),
                 codigoPin = new Random ().Next (10000),
                 nombre = "Maria",
+                sexo = "Mujer",
                 apellido1 = "Alonso",
                 apellido2 = "jimenez",
                 telefonoFijo = 918866399,
@@ -102,6 +107,31 @@ namespace Raist.Data {
                 provincia = "Madrid",
                 codigoPostal = 28803,
                 correoElectronico = "sauron@gmail.com"
+                },
+                new Paciente {
+                UUID = Guid.NewGuid (),
+                codigoPin = new Random ().Next (10000),
+                nombre = "Vera",
+                sexo = "Mujer",
+                apellido1 = "Martin",
+                apellido2 = "Martin",
+                telefonoFijo = 918845387,
+                telefonoMovil = 752794566,
+                ocupacion = "Estudiante",
+                actividadFisica = "Baloncesto",
+                valoracionInicial = "posible lesion en rodilla izquierda",
+                cirugia = "cirugia 'apendicitis'",
+                calle = "Gomez de ochoa",
+                portal = "5",
+                escalera = "izq",
+                piso = "5",
+                letra = "B",
+                poblacion = "Alcala de henares",
+                provincia = "Madrid",
+                fechaNacimiento = DateTime.Parse ("03-09-1997"),
+                codigoPostal = 28805,
+                correoElectronico = "tutututu@gmail.com",
+                historial = "consulta sobre dolor al caminar en rodilla izquierda"
                 }
             };
 
@@ -139,6 +169,7 @@ namespace Raist.Data {
             Empleado empleado = new Empleado {
                 UUID = Guid.NewGuid (),
                 nombre = "Daniel",
+                sexo = "Hombre",
                 apellido1 = "polo",
                 apellido2 = "takeuchi",
 
@@ -221,6 +252,29 @@ namespace Raist.Data {
                         pacienteId = pacientes[0]
                 }
             );
+
+            //Imagenes
+            //https://fisionatbucket.s3-us-west-2.amazonaws.com/1215d448-3023-48e2-9a18-982c9a262914starwars.png
+
+            // var pacientes = new Paciente[] {
+            //     new Paciente {
+
+            var imagenes = new Imagen[] {
+                new Imagen {
+                    url = "https://fisionatbucket.s3-us-west-2.amazonaws.com/2702cb04-3f39-4684-8125-8f81056971fa450_1000.jpg",
+                        paciente = pacientes[0],
+                        descripcion = "imagen de prueba"
+                },
+                new Imagen {
+                    url = "https://fisionatbucket.s3-us-west-2.amazonaws.com/1215d448-3023-48e2-9a18-982c9a262914starwars.png",
+                        paciente = pacientes[0],
+                        descripcion = "imagen de prueba 2"
+                }
+            };
+
+            foreach (Imagen p in imagenes) {
+                context.Imagenes.Add (p);
+            }
 
             //USUARIOS
 

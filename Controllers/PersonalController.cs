@@ -40,7 +40,7 @@ namespace Raist.Controllers {
             Console.WriteLine (empleado.especialidad);
             Console.WriteLine ("*****************");
 
-            if (empleado.especialidad != null && empleado.especialidad != new Guid("00000000-0000-0000-0000-000000000000")) {
+            if (empleado.especialidad != null && empleado.especialidad != new Guid ("00000000-0000-0000-0000-000000000000")) {
 
                 nuevoEspecialista (nuevoEmpleado, empleado.numeroColegiado, empleado.especialidad);
             }
@@ -71,11 +71,14 @@ namespace Raist.Controllers {
         public ActionResult<IEnumerable<Empleado>> Get () {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
-            return Ok (_context.Empleados.ToList ());
+            return Ok (_context.Empleados
+                .Include (empleado => empleado.especialistas)
+                .ThenInclude (especialista => especialista.especialidad)
+                .ToList ());
         }
 
         [EnableCors]
-        [HttpPut ("{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutEmpleado ([FromBody] Empleado empleadoModificado) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
@@ -101,7 +104,7 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpDelete ("{id}")]
+        [HttpDelete]
         public ActionResult<IDictionary<string, string>> deletePaciente (Guid id) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;

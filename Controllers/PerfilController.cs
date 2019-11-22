@@ -32,6 +32,7 @@ namespace Raist.Controllers {
                 .Include (paciente => paciente.tratamientosFarmacologicos)
                 .Include (paciente => paciente.pacienteDeClinicas)
                 .ThenInclude (clinica => clinica.clinica)
+                .Include(paciente => paciente.imagenes)
                 .Where (s => s.UUID == idPaciente).FirstOrDefault ();
 
             if (paciente == null) {

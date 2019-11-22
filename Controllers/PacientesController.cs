@@ -77,7 +77,9 @@ namespace Raist.Controllers {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
             return Ok (_context.Pacientes
-                .Include (paciente => paciente.alergias).ToList ());
+                .Include (paciente => paciente.alergias)
+                .Include (Paciente => Paciente.imagenes)
+                .ToList ());
         }
 
         [EnableCors]

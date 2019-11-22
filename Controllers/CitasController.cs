@@ -21,11 +21,14 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpGet ("/citas")]
-        public ActionResult<IEnumerable<Cita>> Get () {
+        [HttpGet ("/citas/lista/{id}")]
+        public ActionResult<IEnumerable<Cita>> GetListacitas (Guid id) {
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
             Response.Headers.Add ("X-Total-Count", "2");
             Response.Headers.Add ("Access-Control-Expose-Headers", "X-Total-Count");
-            return Ok (_context.Citas.ToList ());
+
+            return Ok (_context.Citas.Where (c => c.paciente.UUID == id).ToList ());
         }
 
         [EnableCors]
@@ -47,13 +50,12 @@ namespace Raist.Controllers {
             if (cita == null) {
                 return NotFound ("Cita no encontrada");
             }
-
             return cita;
         }
 
         [EnableCors]
         [HttpPost]
-        public ActionResult<IDictionary<string, string>> nuevaCita ( [FromBody] PostCita cita) {
+        public ActionResult<IDictionary<string, string>> nuevaCita ([FromBody] PostCita cita) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
@@ -73,14 +75,11 @@ namespace Raist.Controllers {
                 paciente = paciente,
                 };
                 _context.Citas.Add (nuevaCita);
-
                 _context.SaveChanges ();
-
                 return Ok (new Dictionary<string, string> () { { "ok", "Cita creada correctamente" } });
             }
 
-            return BadRequest("la cita no se a creado");
-
+            return BadRequest ("la cita no se a creado");
 
         }
     }
