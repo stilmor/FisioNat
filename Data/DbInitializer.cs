@@ -168,6 +168,7 @@ namespace Raist.Data {
             //EMPLEADO
             Empleado empleado = new Empleado {
                 UUID = Guid.NewGuid (),
+                rol = "especialista",
                 nombre = "Daniel",
                 sexo = "Hombre",
                 apellido1 = "polo",
@@ -247,7 +248,7 @@ namespace Raist.Data {
             context.registros.Add (
                 new Registro {
                     usuario = pacientes[0].correoElectronico,
-                        password = pacientes[0].codigoPin.ToString (),
+                        password = "1234", //pacientes[0].codigoPin.ToString (),
                         passwordHuella = "1234",
                         pacienteId = pacientes[0]
                 }

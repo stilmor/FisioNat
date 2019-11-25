@@ -12,5 +12,7 @@ namespace Raist.Models {
 
         [Required]
         public Guid especialistaId { get; set; }
+
+        public String descripcionConsulta {get; set;}
     }
 }

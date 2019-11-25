@@ -12,6 +12,8 @@ namespace Raist.Models
 
         [Required,MaxLength(30,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string nombre {get; set;}
+        [Required]
+        public string rol {get;set;}
 
         [Required,MaxLength(10,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string sexo {get;set;}
@@ -21,8 +23,7 @@ namespace Raist.Models
 
         [Required,MaxLength(30,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string apellido2 {get; set;}
-
-        //public ICollection <string> persmisos {get; set;}
+        public string persmisos {get; set;}
         public ICollection <Especialista> especialistas { get; set; }
     }
 }

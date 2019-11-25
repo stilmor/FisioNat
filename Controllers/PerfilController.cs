@@ -21,7 +21,7 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-         [HttpGet ("/perfil/{idPaciente}")]
+        [HttpGet ("/perfil/{idPaciente}")]
 
         public ActionResult<Paciente> Get (Guid idPaciente) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
@@ -32,7 +32,7 @@ namespace Raist.Controllers {
                 .Include (paciente => paciente.tratamientosFarmacologicos)
                 .Include (paciente => paciente.pacienteDeClinicas)
                 .ThenInclude (clinica => clinica.clinica)
-                .Include(paciente => paciente.imagenes)
+                .Include (paciente => paciente.imagenes)
                 .Where (s => s.UUID == idPaciente).FirstOrDefault ();
 
             if (paciente == null) {
@@ -40,6 +40,29 @@ namespace Raist.Controllers {
             }
 
             return paciente;
+        }
+
+        [EnableCors]
+        [HttpGet ("/perfil/{idEmpleado}")]
+
+        public ActionResult<Empleado> getEmpleado (Guid idEmpleado) {
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            Empleado empleado = _context.Empleados
+                .Include (empleado => empleado.UUID)
+                .Include (empleado => empleado.nombre)
+                .Include (empleado => empleado.apellido1)
+                .Include (empleado => empleado.apellido2)
+                .Include (empleado => empleado.sexo)
+                .Include (empleado => empleado.especialistas)
+                .ThenInclude (especialista => especialista.especialidad)
+                .Where (e => e.UUID == idEmpleado).FirstOrDefault ();
+
+            if (empleado == null) {
+                return NotFound ();
+            }
+
+            return empleado;
         }
     }
 }

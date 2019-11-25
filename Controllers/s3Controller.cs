@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Raist.Data;
@@ -22,6 +23,27 @@ namespace Raist.Controllers.Helpers {
             _context = context;
         }
 
+        [EnableCors]
+        [HttpDelete]
+        public async Task<IActionResult> deletePhoto (DeleteImagen imagenParaBorrar) {
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+            if (imagenParaBorrar == null) {
+                return BadRequest (new Dictionary<string, string> () { { "Error", "La imagen no se encuentra" } });
+            }
+
+            var imageResponse = await ImagenService.RemoveObject (imagenParaBorrar.key);
+
+            Imagen imagen = _context.Imagenes
+                .Where (i => i.url == imagenParaBorrar.url)
+                .FirstOrDefault ();
+
+            _context.Imagenes.Remove (imagen);
+            _context.SaveChanges ();
+
+            return Ok ("imagen borrada correctamente");
+        }
+
+        [EnableCors]
         [HttpPost]
         public async Task<IActionResult> UploadProfilePhoto (PostImagen imagenPaciente) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;

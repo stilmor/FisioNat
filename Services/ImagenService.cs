@@ -11,16 +11,15 @@ using Raist.Models;
 namespace Raist.Services.Helpers {
     public class ImagenService : ControllerBase {
 
-
+        private static String accessKey = "";
+        private static String accessSecret = "";
         private static String bucket = "fisionatbucket";
-
 
 
         private readonly IConfiguration _configuration;
 
         public ImagenService (IConfiguration configuration) {
             _configuration = configuration;
-
 
         }
 

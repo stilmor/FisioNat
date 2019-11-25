@@ -34,12 +34,19 @@ namespace Raist.Controllers {
                 UUID = Guid.NewGuid (),
                 codigoPin = new Random ().Next (10000),
                 nombre = paciente.nombre,
+                sexo = paciente.sexo,
                 apellido1 = paciente.apellido1,
                 apellido2 = paciente.apellido2,
                 telefonoFijo = paciente.telefonoFijo,
                 telefonoMovil = paciente.telefonoMovil,
                 fechaNacimiento = DateTime.Parse (paciente.fechaNacimiento.ToString ()),
                 codigoPostal = paciente.codigoPostal,
+                calle = paciente.calle,
+                portal = paciente.portal,
+                escalera = paciente.escalera,
+                piso = paciente.piso,
+                letra = paciente.letra,
+                poblacion = paciente.poblacion,
                 correoElectronico = paciente.correoElectronico,
             };
 
@@ -106,6 +113,29 @@ namespace Raist.Controllers {
             }
 
             return Ok ("Usuario Modificado");
+        }
+
+        [EnableCors]
+        [HttpPut ("pacientes/cambiopass")]
+        public async Task<IActionResult> putCambioPassword ([FromBody] PutPassword solicitudCambioPassword) {
+
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            Registro registroPaciente = _context.registros
+                .Where (r => r.pacienteId.UUID == solicitudCambioPassword.idpaciente)
+                .FirstOrDefault ();
+            if (solicitudCambioPassword.oldPassword == registroPaciente.password) {
+                try {
+                    registroPaciente.password = solicitudCambioPassword.newpassword;
+                    await _context.SaveChangesAsync ();
+                } catch (DbUpdateConcurrencyException) {
+                    throw;
+                }
+                return Ok ("Password actualizada");
+            }
+            else{
+                return BadRequest("la contraseña no es correcta");
+            }
         }
 
         [EnableCors]

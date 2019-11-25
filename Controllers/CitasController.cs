@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,20 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpGet ("/citas/lista/{id}")]
+        [HttpGet ("/citas")]
         public ActionResult<IEnumerable<Cita>> GetListacitas (Guid id) {
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            Response.Headers.Add ("X-Total-Count", "2");
+            Response.Headers.Add ("Access-Control-Expose-Headers", "X-Total-Count");
+
+            return Ok (_context.Citas.ToList ());
+        }
+
+        //sacar las citas de un paciente concreto
+        [EnableCors]
+        [HttpGet ("/citas/lista/{id}")]
+        public ActionResult<IEnumerable<Cita>> GetListacitasUsuario (Guid id) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
             Response.Headers.Add ("X-Total-Count", "2");
@@ -31,6 +44,7 @@ namespace Raist.Controllers {
             return Ok (_context.Citas.Where (c => c.paciente.UUID == id).ToList ());
         }
 
+        //para sacar una cita concreta
         [EnableCors]
         [HttpGet ("/citas/{cita_id}")]
         public ActionResult<Cita> Get (Guid cita_id) {
@@ -73,6 +87,7 @@ namespace Raist.Controllers {
                 horaCita = cita.horaCita,
                 especialista = especialista,
                 paciente = paciente,
+                descripcionConsulta = cita.descripcionConsulta
                 };
                 _context.Citas.Add (nuevaCita);
                 _context.SaveChanges ();
@@ -81,6 +96,65 @@ namespace Raist.Controllers {
 
             return BadRequest ("la cita no se a creado");
 
+        }
+
+        [EnableCors]
+        [HttpDelete ("{id}")]
+        public ActionResult<IDictionary<string, string>> deleteCita (Guid id) {
+
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            Cita cita = _context.Citas
+                .Where (c => c.UUID == id)
+                .FirstOrDefault ();
+
+            _context.Citas.Remove (cita);
+            _context.SaveChanges ();
+
+            if (cita == null) {
+                return NotFound ();
+            }
+
+            return Ok (new Dictionary<string, string> () { { "ok", "cita borrada" } });
+        }
+
+        [EnableCors]
+        [HttpPut]
+        public async Task<IActionResult> updateCita ([FromBody] PutCita citaModificada) {
+
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            Paciente paciente = _context.Pacientes
+            .Where(p => p.UUID == citaModificada.idPaciente)
+            .FirstOrDefault();
+
+            Especialista especialista = _context.Especialistas
+            .Where(e => e.UUID == citaModificada.idEspecialista)
+            .FirstOrDefault();
+
+            Cita nuevaCita = new Cita {
+                horaCita = citaModificada.horaCita,
+                paciente = paciente,
+                especialista = especialista,
+                descripcionConsulta = citaModificada.descripcionConsulta
+            };
+
+            Cita cita = _context.Citas
+                .Where (c => c.UUID == citaModificada.uuidCita)
+                .FirstOrDefault ();
+
+            _context.Entry (cita).State = EntityState.Detached;
+            _context.Entry (nuevaCita).State = EntityState.Modified;
+
+
+                await _context.SaveChangesAsync ();
+
+                if (citaModificada == null || nuevaCita == null) {
+                    return NotFound ();
+                }
+
+
+            return Ok ("cita Modificada");
         }
     }
 }

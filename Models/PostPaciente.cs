@@ -9,6 +9,8 @@ namespace Raist.Models
         [Required]
         public string nombre { get; set; }
         [Required]
+        public string sexo { get; set; }
+        [Required]
         public string apellido1 { get; set; }
         [Required]
         public string apellido2 { get; set; }
