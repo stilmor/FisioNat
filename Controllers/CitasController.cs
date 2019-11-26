@@ -119,42 +119,44 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpPut]
-        public async Task<IActionResult> updateCita ([FromBody] PutCita citaModificada) {
-
+        [HttpPut ("{id}")]
+        public ActionResult<IDictionary<string, string>> updateCita ([FromBody] PutCita citaModificada) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
-
-            Paciente paciente = _context.Pacientes
-            .Where(p => p.UUID == citaModificada.idPaciente)
-            .FirstOrDefault();
-
-            Especialista especialista = _context.Especialistas
-            .Where(e => e.UUID == citaModificada.idEspecialista)
-            .FirstOrDefault();
-
-            Cita nuevaCita = new Cita {
-                horaCita = citaModificada.horaCita,
-                paciente = paciente,
-                especialista = especialista,
-                descripcionConsulta = citaModificada.descripcionConsulta
-            };
 
             Cita cita = _context.Citas
                 .Where (c => c.UUID == citaModificada.uuidCita)
                 .FirstOrDefault ();
 
-            _context.Entry (cita).State = EntityState.Detached;
-            _context.Entry (nuevaCita).State = EntityState.Modified;
-
-
-                await _context.SaveChangesAsync ();
-
-                if (citaModificada == null || nuevaCita == null) {
-                    return NotFound ();
+                if (cita == null)
+                {
+                    return BadRequest("cita no encontrada");
                 }
 
+            _context.Citas.Remove (cita);
+            _context.SaveChanges ();
 
-            return Ok ("cita Modificada");
+            Paciente paciente = _context.Pacientes
+                .Where (p => p.UUID == citaModificada.idPaciente)
+                .FirstOrDefault ();
+
+            Especialista especialista = _context.Especialistas
+                .Where (e => e.UUID == citaModificada.idEspecialista)
+                .FirstOrDefault ();
+
+            if (paciente != null && especialista != null) {
+                Cita nuevaCita = new Cita {
+                UUID = Guid.NewGuid (),
+                horaCita = citaModificada.horaCita,
+                especialista = especialista,
+                paciente = paciente,
+                descripcionConsulta = citaModificada.descripcionConsulta
+                };
+                _context.Citas.Add (nuevaCita);
+                _context.SaveChanges ();
+
+                return Ok ("cita Modificada");
+            }
+            return BadRequest("la cita no se ha modificado");
         }
     }
 }

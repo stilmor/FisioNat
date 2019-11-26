@@ -15,9 +15,10 @@ namespace Raist.Models {
         public Especialidad especialidad { get; set; }
 
         [Required]
-        [JsonIgnore] public Empleado empleado { get; set; }
+        [JsonIgnore]
+        public Empleado empleado { get; set; }
 
-        [Required, Range (9, 9, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
+        [Required]
         public int numeroColegiado { get; set; }
 
     }

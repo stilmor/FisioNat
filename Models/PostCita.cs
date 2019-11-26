@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Raist.Models {
     public class PostCita {
+        
         [Required]
         public DateTime horaCita { get; set; }
 

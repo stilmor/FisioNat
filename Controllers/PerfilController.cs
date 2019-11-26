@@ -21,7 +21,7 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpGet ("/perfil/{idPaciente}")]
+        [HttpGet ("/perfil/paciente/{idPaciente}")]
 
         public ActionResult<Paciente> Get (Guid idPaciente) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
@@ -43,17 +43,11 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpGet ("/perfil/{idEmpleado}")]
+        [HttpGet ("/perfil/empleado/{idEmpleado}")]
 
         public ActionResult<Empleado> getEmpleado (Guid idEmpleado) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
-
             Empleado empleado = _context.Empleados
-                .Include (empleado => empleado.UUID)
-                .Include (empleado => empleado.nombre)
-                .Include (empleado => empleado.apellido1)
-                .Include (empleado => empleado.apellido2)
-                .Include (empleado => empleado.sexo)
                 .Include (empleado => empleado.especialistas)
                 .ThenInclude (especialista => especialista.especialidad)
                 .Where (e => e.UUID == idEmpleado).FirstOrDefault ();

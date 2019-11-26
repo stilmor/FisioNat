@@ -26,7 +26,7 @@ namespace Raist.Controllers {
         public ActionResult<IDictionary<string, string>> PostPersonal ([FromBody] PostPersonal empleado) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
-            if (empleado.rol != "especialista" || empleado.rol != "administrador")
+            if (empleado.rol != "especialista" && empleado.rol != "administrador")
             {
                 return BadRequest("error en los permisos del Rol");
             }
