@@ -1,6 +1,5 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+
 
 namespace Raist.Models
 {
@@ -10,6 +9,7 @@ namespace Raist.Models
         public string usuario { get; set; }
 
         //[Range(4,20, ErrorMessage = "La longitud minima de {0} es de {1} caracteres y la maxima de {2}")]
+        [Required]
         public string  password { get; set; }
 
         //revisar formato passwordHuella app

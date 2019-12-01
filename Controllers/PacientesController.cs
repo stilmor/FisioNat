@@ -47,6 +47,7 @@ namespace Raist.Controllers {
                 piso = paciente.piso,
                 letra = paciente.letra,
                 poblacion = paciente.poblacion,
+                provincia = paciente.provincia,
                 correoElectronico = paciente.correoElectronico,
             };
 
@@ -116,25 +117,25 @@ namespace Raist.Controllers {
         }
 
         [EnableCors]
-        [HttpPut ("pacientes/cambiopass")]
+        [HttpPut ("/cambiopass")]
         public async Task<IActionResult> putCambioPassword ([FromBody] PutPassword solicitudCambioPassword) {
-
+            Console.WriteLine ("Entrando en putCambioPassword");
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
-
+            Console.WriteLine ("Tiene token");
             Registro registroPaciente = _context.registros
                 .Where (r => r.pacienteId.UUID == solicitudCambioPassword.idpaciente)
                 .FirstOrDefault ();
             if (solicitudCambioPassword.oldPassword == registroPaciente.password) {
                 try {
                     registroPaciente.password = solicitudCambioPassword.newpassword;
+
                     await _context.SaveChangesAsync ();
                 } catch (DbUpdateConcurrencyException) {
                     throw;
                 }
                 return Ok ("Password actualizada");
-            }
-            else{
-                return BadRequest("la contraseña no es correcta");
+            } else {
+                return BadRequest ("la contraseña no es correcta");
             }
         }
 

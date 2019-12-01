@@ -27,7 +27,7 @@ namespace Raist.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Registro>()
-                .HasKey(c => new { c.usuario, c.password });
+                .HasKey(c => new { c.usuario});
 
             modelBuilder.Entity<PacienteDeClinica>()
                 .HasKey(a => new { a.pacienteUUID, a.clinicaUUID});

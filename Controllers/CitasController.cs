@@ -72,7 +72,9 @@ namespace Raist.Controllers {
         public ActionResult<IDictionary<string, string>> nuevaCita ([FromBody] PostCita cita) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
-
+            Console.WriteLine("******************");
+            Console.WriteLine(cita.pacienteId);
+            Console.WriteLine("******************");
             Paciente paciente = _context.Pacientes
                 .Where (p => p.UUID == cita.pacienteId)
                 .FirstOrDefault ();
