@@ -86,7 +86,7 @@ namespace Raist.Controllers
             {
                 Subject = new ClaimsIdentity(claims),
                 // Nuestro token va a durar un día
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(5),
                 // Credenciales para generar el token usando nuestro secretykey y el algoritmo hash 256
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

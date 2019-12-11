@@ -1,16 +1,87 @@
+using System;
+using System.Collections.Generic;
+using Amazon.Runtime;
+using Amazon.SimpleNotificationService;
+using Amazon.SimpleNotificationService.Model;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+
+namespace Raist.Controllers {
+
+    //[Authorize]
+    [Route ("/Sns")]
+    public class SnsController : AmazonWebServiceResponse {
+
+        public static String accessKey = "";
+        public static String accessSecret = "";
+
+        private readonly IConfiguration _configuration;
+        public SnsController (IConfiguration configuration) {
+            _configuration = configuration;
+        }
+
+        [HttpGet]
+        public void SNSSubscriptionPost () {
+
+            var snsClient = new AmazonSimpleNotificationServiceClient (Amazon.RegionEndpoint.USEast2);
+            string nombreTopic = "nuevo Tema";
+
+            var nuevoTopic = new CreateTopicRequest {
+
+                Name = nombreTopic,
+                Attributes = new Dictionary<string, string> () { { accessKey, accessSecret }
+                }
+            };
+
+            // var a = snsClient.CreateTopicAsync
+
+            // String topicArn = "arn:aws:sns:us-west-2:433048134094:mytopic";
+            // Console.WriteLine("va bien");
+            // String msg = "If you receive this message, publishing a message to an Amazon SNS topic works.";
+            // PublishRequest publishRequest = new PublishRequest(topicArn, msg);
+            // Console.WriteLine("va bien 2");
+            // var publishResponse = await snsClient.PublishAsync(publishRequest);
+            // Console.WriteLine("va bien 3");
+
+            // // Print the MessageId of the published message.
+            // Console.WriteLine ("MessageId: " + publishResponse.MessageId);
+            // await snsClient.PublishAsync(publishRequest);
+        }
+
+        // Publish a message to an Amazon SNS topic.
+
+        // [HttpPost]
+        // public String SNSSubscriptionPost (String id = "") {
+        //     return "";
+        // }
+
+        // public static void mandarCorreo (string email) {
+        //     {
+        //         var sns = new AmazonSimpleNotificationServiceClient ();
+        //         string emailAddress = email;
+
+        //            var  topicArn = sns.CreateTopic( new CreateTopicRequest{
+        //                 Name ="SampleSNSTopic"
+        //             }).TopicArn;
+        //     }
+        // }
+    }
+
+}
+
 // using System;
 // using System.IO;
 // using Amazon.Runtime.Internal.Util;
-// using Microsoft.AspNetCore.Mvc;
 // using Microsoft.Extensions.Logging;
 // using Newtonsoft.Json;
+// using Amazon.SimpleNotificationService;
+// using Amazon.SimpleNotificationService.Model;
 
 // namespace Raist.Controllers {
-//     public class SnsController : ControllerBase {
+//     public class SnsController  {
 
 //         //[Authorize]
 //         [Route ("/Sns")]
-
 
 //         [HttpPost]1
 //         public String SNSSubscriptionPost (String id = "") {

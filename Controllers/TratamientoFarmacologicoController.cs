@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,26 @@ namespace Raist.Controllers {
             }
 
             return BadRequest ("El tratamiento no se ha creado");
+        }
+
+        [EnableCors]
+        [HttpDelete ("{id}")]
+        public ActionResult<IDictionary<string, string>> deleteTratamientoFarmacologico (Guid id) {
+
+            var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
+
+            TratamientoFarmacologico tratamiento = _context.tratamientosFarmacologicos
+                .Where (t => t.UUID == id)
+                .FirstOrDefault ();
+
+            _context.tratamientosFarmacologicos.Remove (tratamiento);
+            _context.SaveChanges ();
+
+            if (tratamiento == null) {
+                return NotFound ();
+            }
+
+            return Ok (new Dictionary<string, string> () { { "ok", "Tratamiento borrado" } });
         }
     }
 }
