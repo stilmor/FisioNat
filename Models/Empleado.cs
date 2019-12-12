@@ -15,6 +15,12 @@ namespace Raist.Models
         [Required]
         public string rol {get;set;}
 
+        [Required]
+        public string password {get; set;}
+
+        [Required]
+        public string user {get; set;}
+
         [Required,MaxLength(10,ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string sexo {get;set;}
 

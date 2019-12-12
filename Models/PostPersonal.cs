@@ -8,6 +8,9 @@ namespace Raist.Models {
         public string nombre { get; set; }
 
         [Required]
+        public string password {get; set;}
+
+        [Required]
         public string rol { get; set; }
 
         [Required]

@@ -26,26 +26,26 @@ namespace Raist.Controllers {
         public ActionResult<IDictionary<string, string>> PostPersonal ([FromBody] PostPersonal empleado) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
-            if (empleado.rol != "especialista" && empleado.rol != "administrador")
-            {
-                return BadRequest("error en los permisos del Rol");
+            if (empleado.rol != "especialista" && empleado.rol != "administrador") {
+                return BadRequest ("error en los permisos del Rol");
             }
 
             Empleado nuevoEmpleado = new Empleado {
                 UUID = Guid.NewGuid (),
                 rol = empleado.rol,
-                nombre = empleado.nombre,
+                nombre = empleado.nombre.ToUpper (),
                 sexo = empleado.sexo,
                 apellido1 = empleado.apellido1,
                 apellido2 = empleado.apellido2,
+                user = empleado.nombre.ToUpper (),
+                password = empleado.password
             };
 
             _context.Empleados.Add (nuevoEmpleado);
 
             _context.SaveChanges ();
-            Console.WriteLine ("*****************");
+
             Console.WriteLine (empleado.especialidad);
-            Console.WriteLine ("*****************");
 
             if (empleado.especialidad != null && empleado.especialidad != new Guid ("00000000-0000-0000-0000-000000000000")) {
 

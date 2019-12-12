@@ -48,7 +48,7 @@ namespace Raist.Controllers {
                 letra = paciente.letra,
                 poblacion = paciente.poblacion,
                 provincia = paciente.provincia,
-                correoElectronico = paciente.correoElectronico,
+                correoElectronico = paciente.correoElectronico.ToUpper(),
             };
 
             _context.Pacientes.Add (nuevoPaciente);
