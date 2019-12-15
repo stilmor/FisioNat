@@ -58,10 +58,6 @@ namespace Raist.Controllers
            // Tu código para validar que el usuario ingresado es válido
            Empleado empleado = _context.Empleados.Where(e => e.user == login.user.ToUpper()).FirstOrDefault();
 
-           Console.WriteLine("**************************");
-           Console.WriteLine(login.user.ToUpper());
-           Console.WriteLine("**************************");
-
            if (empleado == null || empleado.password != login.password)
            {
                return NotFound("Usuario o contraseña incorrecta");
@@ -113,7 +109,7 @@ namespace Raist.Controllers
             {
                 Subject = new ClaimsIdentity(claims),
                 // Nuestro token va a durar un día
-                Expires = DateTime.UtcNow.AddMinutes(5),
+                Expires = DateTime.UtcNow.AddDays(1),
                 // Credenciales para generar el token usando nuestro secretykey y el algoritmo hash 256
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

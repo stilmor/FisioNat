@@ -30,6 +30,27 @@ namespace Raist.Controllers {
         public ActionResult<IDictionary<string, string>> altaPaciente ([FromBody] PostPaciente paciente) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
+             Paciente pacienteBuscado = _context.Pacientes
+                .Where (p => p.nombre == paciente.nombre && p.apellido1 == paciente.apellido1 && p.apellido2 == paciente.apellido2 && p.telefonoMovil == paciente.telefonoMovil)
+                .FirstOrDefault ();
+
+                if (pacienteBuscado != null)
+                {
+
+                   return BadRequest("El paciente ya existe en el registro");
+                }
+
+            string correoElectronicoChequeado;
+
+            if (paciente.correoElectronico != null)
+            {
+                correoElectronicoChequeado = paciente.correoElectronico.ToUpper();
+            }
+            else
+            {
+                correoElectronicoChequeado = null;
+            }
+
             Paciente nuevoPaciente = new Paciente {
                 UUID = Guid.NewGuid (),
                 codigoPin = new Random ().Next (10000),
@@ -48,7 +69,7 @@ namespace Raist.Controllers {
                 letra = paciente.letra,
                 poblacion = paciente.poblacion,
                 provincia = paciente.provincia,
-                correoElectronico = paciente.correoElectronico.ToUpper(),
+                correoElectronico = correoElectronicoChequeado
             };
 
             _context.Pacientes.Add (nuevoPaciente);
@@ -56,6 +77,7 @@ namespace Raist.Controllers {
             _context.SaveChanges ();
 
             if (nuevoPaciente.correoElectronico != null) {
+
                 nuevoRegistro (nuevoPaciente);
             }
 
@@ -74,9 +96,15 @@ namespace Raist.Controllers {
                 usuario = pacienteRegistrado.correoElectronico,
             };
 
-            _context.registros.Add (nuevoRegistro);
-
-            _context.SaveChanges ();
+            try{
+                _context.registros.Add (nuevoRegistro);
+                _context.SaveChanges ();
+                }catch(DbUpdateException e){
+                    if (e.HResult == 2601!)
+                    {
+                        BadRequest("el Paciente ya existe en la base de datos");
+                    }
+                }
         }
 
         [EnableCors]
@@ -99,6 +127,11 @@ namespace Raist.Controllers {
             Paciente paciente = _context.Pacientes
                 .Where (p => p.UUID == pacientemodificado.UUID)
                 .FirstOrDefault ();
+
+                if (pacientemodificado != null)
+                {
+                    nuevoRegistro (pacientemodificado);
+                }
 
             _context.Entry (paciente).State = EntityState.Detached;
             _context.Entry (pacientemodificado).State = EntityState.Modified;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace Raist.Models {
@@ -71,7 +72,8 @@ namespace Raist.Models {
         public int codigoPostal { get; set; }
 
         //el correo deberia ser obligatorio dado que este sera el usuario para la app
-        public string correoElectronico { get; set; }
+        
+        public  string correoElectronico { get; set; }
 
         [MaxLength (1000000000, ErrorMessage = "La longitud maxima de {0} es de {1} caracteres")]
         public string historial {get; set;}

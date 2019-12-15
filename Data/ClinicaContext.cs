@@ -39,6 +39,10 @@ namespace Raist.Data
                 .HasOne(pt => pt.paciente)
                 .WithMany(p => p.pacienteDeClinicas)
                 .HasForeignKey(pt => pt.pacienteUUID);
+
+            modelBuilder.Entity<Paciente>()
+            .HasIndex(p => p.correoElectronico)
+            .IsUnique();
         }
     }
 }
