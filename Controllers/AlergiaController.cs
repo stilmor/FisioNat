@@ -90,7 +90,7 @@ namespace Raist.Controllers {
             return BadRequest ("la alergia no existe");
         }
 
-         [EnableCors]
+        [EnableCors]
         [HttpDelete ("{id}")]
         public ActionResult<IDictionary<string, string>> deleteAlergia (Guid id) {
 

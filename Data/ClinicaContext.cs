@@ -6,9 +6,7 @@ namespace Raist.Data
     public class ClinicaContext : DbContext
     {
         public ClinicaContext(DbContextOptions<ClinicaContext> options) : base(options){}
-
         public DbSet<Cita> Citas { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Alergeno> Alergenos { get; set; }
         public DbSet<Alergia> Alergias { get; set; }
         public DbSet<Especialista> Especialistas { get; set; }
@@ -20,7 +18,6 @@ namespace Raist.Data
         public DbSet<PacienteDeClinica> pacientesDeClinicas {get; set;}
         public DbSet<Empleado> Empleados {get; set;}
         public DbSet<Especialidad> Especialidades {get; set;}
-
         public DbSet<Paciente> Pacientes {get; set;}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

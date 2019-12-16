@@ -30,6 +30,23 @@ namespace Raist.Controllers {
                 return BadRequest ("error en los permisos del Rol");
             }
 
+            Empleado empleadoBuscado = _context.Empleados
+                .Where (e => e.nombre == empleado.nombre && e.apellido1 == empleado.apellido1 && e.apellido2 == empleado.apellido2)
+                .FirstOrDefault ();
+
+            Especialista especialistaBuscado = null;
+
+            if (empleadoBuscado != null) {
+                especialistaBuscado = _context.Especialistas
+                    .Where (esp => esp.empleado.UUID == empleadoBuscado.UUID)
+                    .FirstOrDefault ();
+
+                if (especialistaBuscado != null && especialistaBuscado.especialidad.UUID == empleado.especialidad) {
+
+                    return BadRequest ("El empleado con esta especialidad ya existe");
+                }
+            }
+
             Empleado nuevoEmpleado = new Empleado {
                 UUID = Guid.NewGuid (),
                 rol = empleado.rol,

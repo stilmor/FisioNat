@@ -73,7 +73,16 @@ namespace Raist.Data {
                 telefonoMovil = 635988774,
                 fechaNacimiento = DateTime.Parse ("11-02-1984"),
                 valoracionInicial = "Primera valoracion en consulta",
-                cirugia = "no tiene cirugias",
+                ocupacion = "Estudiante",
+                actividadFisica = "Correr",
+                cirugia = "sin cirugias",
+                calle = "Martin turia",
+                portal = "5",
+                escalera = "derecha",
+                piso = "6",
+                letra = "A",
+                poblacion = "Alcala de henares",
+                provincia = "Madrid",
                 codigoPostal = 28845,
                 correoElectronico = "victorp@prueba.com".ToUpper(),
                 historial = "Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, consecteur, en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de de Finnibus Bonorum et Malorum (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, Lorem ipsum dolor sit amet.., viene de una linea en la sección 1.10.32"
@@ -256,11 +265,6 @@ namespace Raist.Data {
             );
 
             //Imagenes
-            //https://fisionatbucket.s3-us-west-2.amazonaws.com/1215d448-3023-48e2-9a18-982c9a262914starwars.png
-
-            // var pacientes = new Paciente[] {
-            //     new Paciente {
-
             var imagenes = new Imagen[] {
                 new Imagen {
                     url = "https://fisionatbucket.s3-us-west-2.amazonaws.com/2702cb04-3f39-4684-8125-8f81056971fa450_1000.jpg",
@@ -277,27 +281,6 @@ namespace Raist.Data {
             foreach (Imagen p in imagenes) {
                 context.Imagenes.Add (p);
             }
-
-            //USUARIOS
-
-            /* var usuario = new Usuario []
-            {
-                new Usuario{
-                    UUID =  Guid.NewGuid(),
-                    nombre = "Raistlin",
-                    apellido1 = "Majere",
-                    apellido2 = "Majere",
-                    telefono = "+34656355788",
-                    email = "d&d.com",
-                    codigoPin = 1234
-                 }
-            };
-          /*  foreach (Usuario u in usuario)
-            {
-                context.Usuarios.Add(u);
-            }
-            context.SaveChanges();*/
-
         }
 
         public static void Initialize (ClinicaContext context) {

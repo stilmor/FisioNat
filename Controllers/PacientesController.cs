@@ -30,24 +30,20 @@ namespace Raist.Controllers {
         public ActionResult<IDictionary<string, string>> altaPaciente ([FromBody] PostPaciente paciente) {
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
 
-             Paciente pacienteBuscado = _context.Pacientes
+            Paciente pacienteBuscado = _context.Pacientes
                 .Where (p => p.nombre == paciente.nombre && p.apellido1 == paciente.apellido1 && p.apellido2 == paciente.apellido2 && p.telefonoMovil == paciente.telefonoMovil)
                 .FirstOrDefault ();
 
-                if (pacienteBuscado != null)
-                {
+            if (pacienteBuscado != null) {
 
-                   return BadRequest("El paciente ya existe en el registro");
-                }
+                return BadRequest ("El paciente ya existe en el registro");
+            }
 
             string correoElectronicoChequeado;
 
-            if (paciente.correoElectronico != null)
-            {
-                correoElectronicoChequeado = paciente.correoElectronico.ToUpper();
-            }
-            else
-            {
+            if (paciente.correoElectronico != null) {
+                correoElectronicoChequeado = paciente.correoElectronico.ToUpper ();
+            } else {
                 correoElectronicoChequeado = null;
             }
 
@@ -96,15 +92,14 @@ namespace Raist.Controllers {
                 usuario = pacienteRegistrado.correoElectronico,
             };
 
-            try{
+            try {
                 _context.registros.Add (nuevoRegistro);
                 _context.SaveChanges ();
-                }catch(DbUpdateException e){
-                    if (e.HResult == 2601!)
-                    {
-                        BadRequest("el Paciente ya existe en la base de datos");
-                    }
+            } catch (DbUpdateException e) {
+                if (e.HResult == 2601!) {
+                    BadRequest ("el Paciente ya existe en la base de datos");
                 }
+            }
         }
 
         [EnableCors]
@@ -128,10 +123,9 @@ namespace Raist.Controllers {
                 .Where (p => p.UUID == pacientemodificado.UUID)
                 .FirstOrDefault ();
 
-                if (pacientemodificado != null)
-                {
-                    nuevoRegistro (pacientemodificado);
-                }
+            if (pacientemodificado != null) {
+                nuevoRegistro (pacientemodificado);
+            }
 
             _context.Entry (paciente).State = EntityState.Detached;
             _context.Entry (pacientemodificado).State = EntityState.Modified;
@@ -152,9 +146,7 @@ namespace Raist.Controllers {
         [EnableCors]
         [HttpPut ("/cambiopass")]
         public async Task<IActionResult> putCambioPassword ([FromBody] PutPassword solicitudCambioPassword) {
-            Console.WriteLine ("Entrando en putCambioPassword");
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
-            Console.WriteLine ("Tiene token");
             Registro registroPaciente = _context.registros
                 .Where (r => r.pacienteId.UUID == solicitudCambioPassword.idpaciente)
                 .FirstOrDefault ();

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -72,9 +71,6 @@ namespace Raist.Controllers {
         public ActionResult<IDictionary<string, string>> nuevaCita ([FromBody] PostCita cita) {
 
             var user_uuid = User.Claims.Where (x => x.Type == ClaimTypes.Sid).First ().Value;
-            Console.WriteLine("******************");
-            Console.WriteLine(cita.pacienteId);
-            Console.WriteLine("******************");
             Paciente paciente = _context.Pacientes
                 .Where (p => p.UUID == cita.pacienteId)
                 .FirstOrDefault ();
@@ -129,10 +125,9 @@ namespace Raist.Controllers {
                 .Where (c => c.UUID == citaModificada.uuidCita)
                 .FirstOrDefault ();
 
-                if (cita == null)
-                {
-                    return BadRequest("cita no encontrada");
-                }
+            if (cita == null) {
+                return BadRequest ("cita no encontrada");
+            }
 
             _context.Citas.Remove (cita);
             _context.SaveChanges ();
@@ -158,7 +153,7 @@ namespace Raist.Controllers {
 
                 return Ok ("cita Modificada");
             }
-            return BadRequest("la cita no se ha modificado");
+            return BadRequest ("la cita no se ha modificado");
         }
     }
 }
